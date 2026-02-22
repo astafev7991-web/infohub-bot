@@ -1,0 +1,98 @@
+# === СЕКРЕТЫ И КОНФИГУРАЦИЯ (НИКОГДА НЕ КОММИТЬ!) ===
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets.json
+config.local.py
+
+# === БАЗЫ ДАННЫХ И КЭШ (создаются на сервере) ===
+*.db
+*.sqlite
+*.sqlite3
+cache.json
+cache.json.tmp
+*.log
+logs/
+
+# === PYTHON: системные файлы ===
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# === PYTHON: виртуальные окружения ===
+venv/
+ENV/
+env/
+.venv/
+.pytest_cache/
+.mypy_cache/
+
+# === IDE И РЕДАКТОРЫ ===
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# === ОС-СПЕЦИФИЧНЫЕ ФАЙЛЫ ===
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === ТЕСТЫ И ПОКРЫТИЕ ===
+htmlcov/
+.coverage
+.tox/
+.nox/
+
+# === ДОКУМЕНТАЦИЯ (опционально) ===
+docs/_build/
+
+# === DOCKER ===
+.docker/
+docker-compose.override.yml
+
+# === CI/CD (если будете добавлять) ===
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# === TEMP И ЗАГРУЗКИ ===
+tmp/
+temp/
+*.tmp
+*.temp
+uploads/
+downloads/
+
+# === SPECIFIC TO INFOHUB ===
+# Файлы, которые генерируются при работе бота
+users.db-shm
+users.db-wal
+cache.json.lock
+
+def _is_cache_valid(self, cache_ Dict) -> bool:  # должно быть cache_data
+parts.append(f"\n😄 <b>Факт дня</b>:\n{i['setup']}\n<i>{joke['punchline']}</i>")
