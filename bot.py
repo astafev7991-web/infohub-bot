@@ -26,7 +26,7 @@ from config import (
     BOT_TOKEN, LOG_LEVEL, DAILY_BROADCAST_HOUR, DAILY_BROADCAST_MINUTE,
     CATEGORIES, CITY_COORDINATES, DEFAULT_LAT, DEFAULT_LON,
     PREMIUM_PROMO_TEXT, DONATE_BUTTON_URL, DB_PATH, CACHE_PATH,
-    RATE_LIMIT_SECONDS, MARKET_CACHE_PATH, NEWS_CACHE_PATH
+    RATE_LIMIT_SECONDS, MARKET_CACHE_PATH, NEWS_CACHE_PATH, ADMIN_ID
 )
 from database import Database
 from cache_manager import CacheManager
@@ -207,7 +207,7 @@ class BotApp:
 
 <b>Категории дайджеста:</b>
 • 🌤 Погода • 💰 Криптовалюты
-• 💱 Курсы валют • 📰 Новости • 😄 Факт дня
+• 💱 Курсы валют • 📰 Новости
 
 <b>Время рассылки:</b>
 Ежедневно в 09:00 по Москве
@@ -245,6 +245,48 @@ class BotApp:
             await message.answer("❌ Ошибка получения статистики")
 
     @handle_telegram_errors
+    async def cmd_api_metrics(self, message: types.Message):
+        """Метрики API (только для админа)"""
+        user_id = message.from_user.id
+        
+        if not ADMIN_ID or user_id != ADMIN_ID:
+            await message.answer("⛔ Команда доступна только администратору")
+            return
+        
+        try:
+            lines = ["📊 <b>Метрики API</b>\n"]
+            
+            # Погода (Open-Meteo)
+            weather_remaining = self.api_client.get_weather_remaining_requests()
+            lines.append(f"🌤 <b>Open-Meteo (погода):</b>")
+            lines.append(f"   Осталось: {weather_remaining}/10 в час")
+            lines.append("")
+            
+            # Новости (NewsData.io)
+            if self.news_digest:
+                news_metrics = self.news_digest.get_metrics()
+                lines.append(f"📰 <b>NewsData.io (новости):</b>")
+                lines.append(f"   В час: {news_metrics['hourly_remaining']}/{news_metrics['hourly_limit']}")
+                lines.append(f"   В день: {news_metrics['daily_remaining']}/{news_metrics['daily_limit']}")
+                lines.append(f"   Всего: {news_metrics['total_calls']}")
+                lines.append(f"   Кэш: {news_metrics['cache_entries']} записей")
+                lines.append("")
+            
+            # Крипто (CoinGecko)
+            if self.market_digest:
+                market_metrics = self.market_digest.get_metrics()
+                lines.append(f"💰 <b>CoinGecko (крипто):</b>")
+                lines.append(f"   Запросов/мин: {market_metrics['coingecko_calls_last_minute']}/30")
+                lines.append(f"   Кэш: {market_metrics['cache_entries']} записей")
+                lines.append("")
+            
+            await message.answer("\n".join(lines), parse_mode="HTML")
+            
+        except Exception as e:
+            logger.error(f"Error getting API metrics: {e}")
+            await message.answer("❌ Ошибка получения метрик")
+
+    @handle_telegram_errors
     async def handle_button(self, message: types.Message):
         """Обработка нажатий на reply-кнопки"""
         user_id = message.from_user.id
@@ -265,7 +307,7 @@ class BotApp:
                 parse_mode="HTML",
                 reply_markup=self.keyboards["news"]()
             )
-        
+
         elif text == "⚙️ Настройки":
             self._user_state[user_id] = "settings"
             prefs = await self.db.get_user_preferences(user_id)
@@ -534,16 +576,22 @@ class BotApp:
         # Погода
         if prefs.get("weather") and cache_data.get("weather"):
             w = cache_data["weather"]
-            weather_emojis = {
-                0: "☀️", 1: "🌤", 2: "⛅", 3: "☁️", 45: "🌫",
-                51: "🌦", 53: "🌧", 61: "🌧", 71: "🌨", 75: "❄️", 95: "⛈"
-            }
-            emoji = weather_emojis.get(w.get("weather_code", 0), "🌡")
             temp = w.get('temperature', 'N/A')
-            wind = w.get('wind_speed', 'N/A')
-            parts.append(f"\n{emoji} <b>Погода:</b> {temp}°C, ветер {wind} м/с")
+            condition = w.get('condition', 'Неизвестно')
+            emoji = w.get('condition_emoji', '🌡️')
+            precip_type = w.get('precipitation_type')
+            cloud_cover = w.get('cloud_cover', 0)
+            
+            # Формируем строку осадков
+            precip_str = ""
+            if precip_type:
+                precip_str = f", {precip_type}"
+            elif cloud_cover < 20:
+                precip_str = ", без осадков"
+            
+            parts.append(f"\n{emoji} <b>Погода:</b> {temp}°C, {condition}{precip_str}")
         elif prefs.get("weather"):
-            parts.append("\n🌡 <b>Погода:</b> временно недоступно")
+            parts.append("\n🌡️ <b>Погода:</b> временно недоступно")
 
         # Криптовалюты
         if prefs.get("crypto") and cache_data.get("crypto"):
@@ -568,23 +616,24 @@ class BotApp:
                 val = rates.get(code)
                 parts.append(f"  {name}: {val} ₽" if val else f"  {name}: недоступно")
 
-        # Новости
-        if prefs.get("news") and cache_data.get("news"):
-            parts.append("\n📰 <b>Новости:</b>")
-            for item in cache_data["news"][:3]:
-                raw_title = item.get("title", "Без заголовка")
-                title = html.escape((raw_title[:60] + "...") if len(raw_title) > 60 else raw_title)
-                source = html.escape(item.get("source", "Источник"))
-                link = item.get("link", "#")
-                parts.append(f" • <a href='{link}'>{title}</a> <i>({source})</i>")
-
-        # Факт дня
-        if prefs.get("joke") and cache_data.get("joke"):
-            joke = cache_data["joke"]
-            setup = html.escape(joke.get("setup", ""))
-            punchline = html.escape(joke.get("punchline", ""))
-            parts.append(f"\n😄 <b>Факт дня:</b>\n{setup}\n<i>{punchline}</i>")
-
+        # Новости (из NewsData.io вместо RSS)
+        if prefs.get("news") and self.news_digest:
+            news_articles = self.news_digest.get_cached_articles(
+                language="ru", category="top", max_items=3
+            )
+            if news_articles:
+                parts.append("\n📰 <b>Новости:</b>")
+                for item in news_articles:
+                    raw_title = item.get("title", "Без заголовка")
+                    title = html.escape((raw_title[:60] + "...") if len(raw_title) > 60 else raw_title)
+                    source = html.escape(item.get("source", "Источник"))
+                    link = item.get("url", "#")
+                    parts.append(f" • <a href='{link}'>{title}</a> <i>({source})</i>")
+            else:
+                parts.append("\n📰 <b>Новости:</b> временно недоступно")
+        elif prefs.get("news"):
+            parts.append("\n📰 <b>Новости:</b> временно недоступно")
+        
         parts.append(f"\n\n{PREMIUM_PROMO_TEXT}")
         return "\n".join(parts)
 
@@ -677,7 +726,7 @@ class BotApp:
             self.scheduler.add_job(
                 lambda: asyncio.create_task(self.news_digest.refresh_all()),
                 trigger="interval",
-                minutes=30,
+                hours=1,  # 1 час для экономии API запросов (лимит 20/час)
                 id="news_digest_refresh",
                 misfire_grace_time=600
             )
@@ -760,6 +809,7 @@ class BotApp:
         self.dp.message(Command("help"))(self.cmd_help)
         self.dp.message(Command("ping"))(self.cmd_ping)
         self.dp.message(Command("stats"))(self.cmd_stats)
+        self.dp.message(Command("api"))(self.cmd_api_metrics)
         
         # Текстовые сообщения (reply-кнопки)
         self.dp.message(F.text)(self.handle_button)

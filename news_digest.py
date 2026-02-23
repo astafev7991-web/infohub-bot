@@ -1,6 +1,6 @@
 """
 Класс NewsDigest — новости из NewsData.io с агрессивным кэшированием.
-Соблюдает лимиты: 200 запросов/день (Free tier).
+Соблюдает лимиты: 20 запросов/час, 200 запросов/день (Free tier).
 
 API: https://newsdata.io/
 Документация: https://newsdata.io/docs
@@ -20,17 +20,22 @@ from config import NEWSDATA_API_KEY
 
 logger = logging.getLogger(__name__)
 
-
 # === КОНФИГУРАЦИЯ ===
 NEWSDATA_BASE = "https://newsdata.io/api/1"
 
-# Время жизни кэша (секунды)
+# Лимиты API
+HOURLY_LIMIT = 20      # Запросов в час
+DAILY_LIMIT = 200      # Запросов в день
+
+# Время жизни кэша (секунды) — увеличено для экономии запросов
 CACHE_TTL = {
-    "headlines_ru": 30 * 60,       # 30 минут
-    "headlines_ru_world": 30 * 60, # 30 минут
-    "headlines_ru_tech": 30 * 60,  # 30 минут
-    "headlines_ru_business": 30 * 60,  # 30 минут
-    "headlines_ru_science": 30 * 60,   # 30 минут
+    "headlines_ru": 60 * 60,           # 1 час
+    "headlines_ru_top": 60 * 60,       # 1 час
+    "headlines_ru_world": 60 * 60,     # 1 час
+    "headlines_ru_technology": 60 * 60,  # 1 час
+    "headlines_ru_business": 60 * 60,    # 1 час
+    "headlines_ru_science": 60 * 60,     # 1 час
+    "headlines_ru_politics": 60 * 60,    # 1 час
 }
 
 REQUEST_TIMEOUT = aiohttp.ClientTimeout(total=15)
@@ -66,10 +71,14 @@ class CacheEntry:
 
 @dataclass
 class APIMetrics:
-    """Метрики использования API"""
+    """Метрики использования API с часовым и дневным лимитами"""
     total_calls: int = 0
     daily_calls: int = 0
     last_reset_date: str = ""
+    
+    # Часовой лимит
+    hourly_calls: int = 0
+    last_hour_reset: float = 0  # timestamp начала текущего часа
     
     def reset_if_new_day(self):
         """Сброс дневного счётчика"""
@@ -79,6 +88,44 @@ class APIMetrics:
             self.last_reset_date = today
             logger.info(f"NewsDigest: Daily counter reset for {today}")
 
+    def reset_if_new_hour(self):
+        """Сброс часового счётчика"""
+        current_hour_start = int(time.time() // 3600) * 3600
+        if self.last_hour_reset != current_hour_start:
+            self.hourly_calls = 0
+            self.last_hour_reset = current_hour_start
+            logger.info(f"NewsDigest: Hourly counter reset")
+
+    def can_make_request(self) -> bool:
+        """Проверка возможности сделать запрос"""
+        self.reset_if_new_hour()
+        self.reset_if_new_day()
+        
+        if self.hourly_calls >= HOURLY_LIMIT:
+            logger.warning(f"NewsDigest: Hourly limit reached ({self.hourly_calls}/{HOURLY_LIMIT})")
+            return False
+        
+        if self.daily_calls >= DAILY_LIMIT:
+            logger.warning(f"NewsDigest: Daily limit reached ({self.daily_calls}/{DAILY_LIMIT})")
+            return False
+        
+        return True
+    
+    def increment(self):
+        """Увеличение счётчиков после запроса"""
+        self.hourly_calls += 1
+        self.daily_calls += 1
+        self.total_calls += 1
+    
+    def get_remaining(self) -> Dict[str, int]:
+        """Получить остаток запросов"""
+        self.reset_if_new_hour()
+        self.reset_if_new_day()
+        return {
+            "hourly": HOURLY_LIMIT - self.hourly_calls,
+            "daily": DAILY_LIMIT - self.daily_calls,
+        }
+
 
 class NewsDigest:
     """
@@ -86,7 +133,7 @@ class NewsDigest:
     
     Особенности:
     - Кэш в памяти + JSON-файл (fallback)
-    - Лимит 200 запросов/день (Free tier)
+    - Лимит 20 запросов/час, 200 запросов/день (Free tier)
     - Поддержка русского языка
     - Graceful degradation при ошибках
     """
@@ -142,6 +189,8 @@ class NewsDigest:
                 self._metrics.total_calls = data["metrics"].get("total_calls", 0)
                 self._metrics.daily_calls = data["metrics"].get("daily_calls", 0)
                 self._metrics.last_reset_date = data["metrics"].get("last_reset_date", "")
+                self._metrics.hourly_calls = data["metrics"].get("hourly_calls", 0)
+                self._metrics.last_hour_reset = data["metrics"].get("last_hour_reset", 0)
             
             logger.info(f"NewsDigest: Loaded {len(self._cache)} cache entries")
             
@@ -164,7 +213,9 @@ class NewsDigest:
                 "metrics": {
                     "total_calls": self._metrics.total_calls,
                     "daily_calls": self._metrics.daily_calls,
-                    "last_reset_date": self._metrics.last_reset_date
+                    "last_reset_date": self._metrics.last_reset_date,
+                    "hourly_calls": self._metrics.hourly_calls,
+                    "last_hour_reset": self._metrics.last_hour_reset,
                 }
             }
             
@@ -181,7 +232,7 @@ class NewsDigest:
             return False
         
         entry = self._cache[key]
-        ttl = CACHE_TTL.get(key, 30 * 60)
+        ttl = CACHE_TTL.get(key, 60 * 60)
         age = time.time() - entry.fetched_at
         
         return age < ttl
@@ -204,13 +255,14 @@ class NewsDigest:
     async def _fetch_newsdata(self, endpoint: str, params: Dict = None) -> Optional[Dict]:
         """
         Запрос к NewsData.io с учётом лимитов.
-        Лимит: 200 запросов/день на Free tier.
+        Лимит: 20 запросов/час, 200 запросов/день на Free tier.
         """
-        self._metrics.reset_if_new_day()
-        
-        # Проверка дневного лимита (оставляем запас 10 запросов)
-        if self._metrics.daily_calls >= 190:
-            logger.warning("NewsDigest: Daily API limit approaching (190/200)")
+        # Проверка лимитов
+        if not self._metrics.can_make_request():
+            remaining = self._metrics.get_remaining()
+            logger.warning(
+                f"NewsDigest: Rate limit — hourly: {remaining['hourly']}, daily: {remaining['daily']}"
+            )
             return None
         
         if not self.api_key:
@@ -225,11 +277,14 @@ class NewsDigest:
             params = params or {}
             params["apikey"] = self.api_key
             
-            self._metrics.total_calls += 1
-            self._metrics.daily_calls += 1
+            # Увеличиваем счётчики ПЕРЕД запросом
+            self._metrics.increment()
             
+            remaining = self._metrics.get_remaining()
             logger.info(
-                f"NewsDigest: API call #{self._metrics.daily_calls}/200 today → {endpoint}"
+                f"NewsDigest: API call → {endpoint} "
+                f"(hourly: {HOURLY_LIMIT - remaining['hourly']}/{HOURLY_LIMIT}, "
+                f"daily: {DAILY_LIMIT - remaining['daily']}/{DAILY_LIMIT})"
             )
             
             async with session.get(url, params=params) as resp:
@@ -338,16 +393,50 @@ class NewsDigest:
     
     # === СВЕЖИЕ ДАННЫЕ ===
     
+    def get_cached_articles(self, language: str = "ru", category: str = "top", max_items: int = 5) -> List[Dict]:
+        """
+        Получение статей из кэша (БЕЗ API запросов!).
+        Для использования в главном дайджесте.
+        
+        Args:
+            language: Код языка
+            category: Категория
+            max_items: Максимальное количество статей
+        
+        Returns:
+            Список статей с полями: title, url, source, description
+        """
+        cache_key = f"headlines_{language}"
+        if category:
+            cache_key = f"headlines_{language}_{category}"
+        
+        entry = self._cache.get(cache_key)
+        
+        if not entry or not entry.data:
+            # Пробуем без категории
+            entry = self._cache.get(f"headlines_{language}")
+        
+        if not entry or not entry.data:
+            return []
+        
+        return entry.data[:max_items]
+    
     async def refresh_all(self) -> Dict[str, bool]:
         """
-        Принудительное обновление основных лент.
+        Принуденное обновление основных лент.
         Вызывается по расписанию.
         """
         logger.info("NewsDigest: Starting refresh")
         
         results = {}
+        remaining = self._metrics.get_remaining()
         
-        # Обновляем русские новости по категориям
+        # Проверяем лимит перед обновлением
+        if remaining['hourly'] < 5:
+            logger.warning(f"NewsDigest: Skipping refresh — only {remaining['hourly']} hourly requests left")
+            return {"skipped": True, "reason": "hourly_limit"}
+        
+        # Обновляем русские новости по категориям (5 запросов)
         tasks = [
             ("ru_top", self.get_latest_news(language="ru", category="top")),
             ("ru_world", self.get_latest_news(language="ru", category="world")),
@@ -364,8 +453,8 @@ class NewsDigest:
                 logger.error(f"NewsDigest: Error refreshing {name}: {e}")
                 results[name] = False
         
-        success = sum(results.values())
-        logger.info(f"NewsDigest: Refresh complete ({success}/{len(results)} sources)")
+        success = sum(1 for v in results.values() if v is True)
+        logger.info(f"NewsDigest: Refresh complete ({success}/{len(tasks)} sources)")
         
         return results
     
@@ -501,7 +590,11 @@ class NewsDigest:
             return "📰 <b>Новости</b>\n\n❌ Данные временно недоступны. Попробуйте позже."
         
         # Метрики
-        lines.append(f"📊 API: {self._metrics.daily_calls}/200 запросов сегодня")
+        remaining = self._metrics.get_remaining()
+        lines.append(
+            f"📊 API: {remaining['hourly']}/{HOURLY_LIMIT} в час, "
+            f"{remaining['daily']}/{DAILY_LIMIT} в день"
+        )
         
         return "\n".join(lines)
     
@@ -509,11 +602,16 @@ class NewsDigest:
     
     def get_metrics(self) -> Dict[str, Any]:
         """Получение метрик использования API"""
+        remaining = self._metrics.get_remaining()
+        
         return {
             "total_calls": self._metrics.total_calls,
+            "hourly_calls": self._metrics.hourly_calls,
+            "hourly_limit": HOURLY_LIMIT,
+            "hourly_remaining": remaining["hourly"],
             "daily_calls": self._metrics.daily_calls,
-            "daily_limit": 200,
-            "remaining": 200 - self._metrics.daily_calls,
+            "daily_limit": DAILY_LIMIT,
+            "daily_remaining": remaining["daily"],
             "cache_entries": len(self._cache),
             "cache_status": {
                 key: {

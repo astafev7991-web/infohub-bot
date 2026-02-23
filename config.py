@@ -97,6 +97,13 @@ DAILY_BROADCAST_MINUTE = validate_minute(
 )
 ENABLE_BACKGROUND_REFRESH = get_optional_env("ENABLE_BACKGROUND_REFRESH", "true", bool)
 
+# === ADMIN ===
+ADMIN_ID = get_optional_env("ADMIN_ID", "367340954", int)
+if ADMIN_ID and ADMIN_ID != 0:
+    logger.info(f"✅ ADMIN_ID загружен: {ADMIN_ID}")
+else:
+    logger.warning("⚠️ ADMIN_ID не задан — команда /api недоступна")
+
 # === API KEYS ===
 # NewsData.io API (https://newsdata.io/)
 NEWSDATA_API_KEY = get_optional_env("NEWSDATA_API_KEY", "pub_4d218b0e2165446c8995391fbca82859", str)
@@ -132,9 +139,6 @@ NEWS_SOURCES = [
     "https://vesti.ru/vesti.rss"
 ]
 
-# API шуток (без флагов, которые могут ломать lang=ru)
-JOKE_API_URL = "https://v2.jokeapi.dev/joke/Any?lang=ru"
-
 # === UI TEXTS ===
 PREMIUM_PROMO_TEXT = "🔥 Хочешь новости чаще и без рекламы? Скоро Premium!"
 DONATE_BUTTON_URL = "https://t.me/your_donate_bot"
@@ -144,8 +148,7 @@ CATEGORIES = {
     "weather": "🌤 Погода",
     "crypto": "💰 Криптовалюты",
     "fiat": "💱 Курсы валют",
-    "news": "📰 Новости",
-    "joke": "😄 Факт дня"
+    "news": "📰 Новости"
 }
 
 # === CITIES ===

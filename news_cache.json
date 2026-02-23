@@ -294,326 +294,386 @@
     "headlines_ru_top": {
       "data": [
         {
-          "title": "Agerpres: Бухарест потребовал, чтобы на Украине сохранили сеть румынских школ",
-          "description": "Эта информация, по словам председателя Культурного общества имени Михая Эминеску в Черновцах, была доведена до сведения представителей румынского сообщества в области сотрудниками генерального консульства Румынии в городе в ходе неформальной встречи",
-          "url": "https://tass.ru/mezhdunarodnaya-panorama/26523377",
+          "title": "С 1 марта увеличится стоимость въездной визы в Египет",
+          "description": "Россиянам, планирующим поездку в Египет после 1 марта, следует помнить о вступающих в силу важных изменениях, в частности, о подорожании въездной визы.",
+          "url": "https://versia.ru/s-1-marta-uvelichitsya-stoimost-vezdnoj-vizy-v-egipet",
+          "source": "versia",
+          "author": "екатерина степанова",
+          "published_at": "2026-02-22 17:15:00",
+          "image_url": "https://versia.ru/foto/s/-/s-1-marta-uvelichitsya-stoimost-vezdnoj-vizy-v-egipet-1-2.jpg",
+          "category": "lifestyle"
+        },
+        {
+          "title": "В Штатах застрелили вооруженного мужчину, проникшего на территорию резиденции Трампа",
+          "description": "В Секретной службе США сообщили об инциденте в Мар-а-Лаго. Президента и первой леди на месте не было",
+          "url": "https://news.liga.net/politics/news/v-ssha-zastrelili-muzhchinu-pronikshego-v-rezidentsiyu-trampa-prezidenta-na-meste-ne-bylo",
+          "source": "news_liga_net",
+          "author": "артём джерипа",
+          "published_at": "2026-02-22 17:15:00",
+          "image_url": "https://storage.liga.net/images/general/2026/02/22/20260222191731-6355.jpg",
+          "category": "lifestyle"
+        },
+        {
+          "title": "Борис Михайлов считает, что хоккеисты США и Канады хотят возвращения россиян",
+          "description": "Победителями олимпийского турнира в Италии стали американцы",
+          "url": "https://tass.ru/sport/26525549",
           "source": "tass",
           "author": "",
-          "published_at": "2026-02-22 07:53:34",
-          "image_url": null,
+          "published_at": "2026-02-22 17:14:40",
+          "image_url": "https://cdn-media.tass.ru/fit/400x300_b2b00b17/tass/m2/uploads/i/20260222/8834463.jpg",
           "category": "lifestyle"
         },
         {
-          "title": "В НЦ «Россия» прошла встреча Литературного клуба ко Дню защитника Отечества",
-          "description": "В Национальном центре «Россия» состоялся вечер Литературного клуба «Что/бы почитать?!», приуроченный ко Дню защитника Отечества.",
-          "url": "https://vz.ru/news/2026/2/22/1396752.html",
-          "source": "vz_ru",
-          "author": "дарья григоренко",
-          "published_at": "2026-02-22 07:53:27",
-          "image_url": "https://img.vz.ru/upimg/soc/soc_1396752.png",
-          "category": "lifestyle"
-        },
-        {
-          "title": "На ОИ-2026 боб перевернулся на 130 км/ч и тормозил головами спортсменов до самого финиша. Видео",
-          "description": "Момент попал в прямой эфир",
-          "url": "https://www.obozrevatel.com/sport-oboz/na-olimpiade-2026-sluchilas-tyazhelaya-avariya-na-bobslee-sportsmena-srochno-gospitalizirovali-video.htm",
-          "source": "obozrevatel",
-          "author": "максим иншаков",
-          "published_at": "2026-02-22 07:53:18",
-          "image_url": "https://i.obozrevatel.com/news/2026/2/22/filestoragetemp13.jpg?size=1200x630",
-          "category": "lifestyle"
-        },
-        {
-          "title": "ВСУ дронами атаковали нефтебазу в Луганске",
-          "description": "Ранен сотрудник охраны предприятия",
-          "url": "https://tass.ru/proisshestviya/26523385",
-          "source": "tass",
-          "author": "",
-          "published_at": "2026-02-22 07:52:34",
-          "image_url": "https://cdn-media.tass.ru/fit/400x300_b2b00b17/tass/m2/uploads/i/20260222/8833753.jpg",
-          "category": "top"
-        },
-        {
-          "title": "В Минске прошли массовые задержания издателей и распространителей книг",
-          "description": "Часть задержанных отправили на «сутки».",
-          "url": "https://charter97.org/ru/news/2026/2/22/674515/",
-          "source": "charter97",
-          "author": "",
-          "published_at": "2026-02-22 07:52:29",
-          "image_url": null,
-          "category": "top"
-        },
-        {
-          "title": "Как связаны больные зубы у детей и частые ангины",
-          "description": "Кариес, пульпит и ранняя потеря молочных зубов у детей ведут к заболеваниям желудочно-кишечного тракта, частым ангинам, отитам и гайморитам. Об этом рассказала детский стоматолог-гигиенист Насиба Джалилова, передает Sports.kz со ссылкой на Gazeta.ru.",
-          "url": "https://www.sports.kz/news/kak-svyazanyi-bolnyie-zubyi-u-detey-i-chastyie-anginyi",
-          "source": "sportskz",
-          "author": "sports.kz",
-          "published_at": "2026-02-22 07:52:13",
-          "image_url": "https://www.sports.kz/upload/2026-02/699ab5ad5f2d0.jpg",
-          "category": "lifestyle"
-        },
-        {
-          "title": "В Ярославской области восстановили движение поездов после ЧП с составом",
-          "description": "Движение пассажирских поездов восстановлено после поломки грузового состава в Ярославской области накануне вечером, сообщила Северная железная дорога. РИА Новости, 22.02.2026",
-          "url": "https://ria.ru/20260222/poezda-2076067860.html",
-          "source": "ria",
-          "author": "риа новости",
-          "published_at": "2026-02-22 07:51:43",
-          "image_url": "https://cdnn21.img.ria.ru/images/07e5/0c/0a/1763091965_0:320:3072:2048_1920x1080_80_0_0_187627a954fd93098f191956ef75511f.jpg",
-          "category": "lifestyle"
-        },
-        {
-          "title": "\"Падет Запорожье\". На Западе сделали заявление по Украине. \"Придет конец\"",
-          "description": "Если Украина окончательно лишится Донбасса и Запорожской области, ей придет конец, заявил британский военный аналитик Александр Меркурис в эфире своего YouTube-канала. Киев больше не в состоянии выходить на бой против России — даже с западной \"помощью\", уверен эксперт.",
-          "url": "https://inosmi.ru/20260222/ukraina-277229630.html",
-          "source": "inosmi_ru",
-          "author": "иносми",
-          "published_at": "2026-02-22 07:51:00",
-          "image_url": "https://cdnn1.inosmi.ru/img/07ea/02/16/277229480_0:183:2993:1866_2560x1440_80_0_0_b67071faeffc96670c58869605f5f14d.jpg",
-          "category": "entertainment"
-        },
-        {
-          "title": "Володин запустил опрос о лимите на банковские карты",
-          "description": "Спикер Госдумы спросил подписчиков о необходимости введения лимита на банковские карты в РФ.",
-          "url": "https://aif.ru/society/volodin-zapustil-opros-o-limite-na-bankovskie-karty",
-          "source": "aif",
-          "author": "людмила трифонова",
-          "published_at": "2026-02-22 07:50:49",
-          "image_url": "https://aif-s3.aif.ru/images/045/176/ca0cf4d9be13a2e502fd7c0364cbaa38.webp",
-          "category": "lifestyle"
-        },
-        {
-          "title": "Жук: единственное, что может сдержать агрессию объединенной Европы, — страх получить сильный ответный удар",
-          "description": "В эфире программы «Клуб редакторов» на телеканале «Беларусь 1» обсудили агрессивные устремления объединенной Европы и объяснили, что может сдержать...",
-          "url": "https://www.sb.by/articles/zhuk-edinstvennoe-chto-mozhet-sderzhat-agressiyu-obedinennoy-evropy-strakh-poluchit-silnyy-otvetnyy-.html",
+          "title": "В Минске женщина забрала оставленный в тележке магазина чужой кошелек — возбуждено уголовное дело",
+          "description": "Минские правоохранители возбудили уголовное дело по факту кражи в одном из столичных магазинов. Об этом сообщает sb.by со ссылкой на телеграм-канал...",
+          "url": "https://www.sb.by/articles/v-minske-zhenshchina-zabrala-ostavlennyy-v-telezhke-magazina-chuzhoy-koshelek-vozbuzhdeno-ugolovnoe-.html",
           "source": "sb_by",
           "author": "sb.by",
-          "published_at": "2026-02-22 07:50:48",
-          "image_url": "https://io.sb.by/storage01/iblock/aa5/aa5a649aaaa4753e8887788ebc02ec88/02b5897bbd8dd4a0a80e8fa6e7c781db.jpg",
+          "published_at": "2026-02-22 17:14:28",
+          "image_url": "https://io.sb.by/storage01/iblock/9ce/9ce7ef25b56e161b6ae35576c6671fd8/7bb85e17660fcd11a9015e9e5da73348.png",
+          "category": "lifestyle"
+        },
+        {
+          "title": "\"Neutralisali smo ludu osobu\" Hitno se oglasila Bela kuća nakon napada na Trampovo imanje",
+          "description": "Motiv i identitet napadača još se istražuju, a istragu vode FBI, Tajna služba i lokalna policija. Muškarac, star oko 20 godina, nosio je sačmaricu i kanister sa gorivom, a identitet mu nije odmah objavljen.",
+          "url": "https://www.sd.rs/vesti/svet/neutralisali-smo-ludu-osobu-hitno-se-oglasila-bela-kuca-nakon-napada-na-trampovo-imanje-2026-02-22",
+          "source": "kk_primorska",
+          "author": "srbija danas",
+          "published_at": "2026-02-22 17:14:02",
+          "image_url": "https://www.sd.rs/sites/default/files/styles/news_full_desktop_2x/public/2026-02/MixCollage-22-Feb-2026-06-04-PM-2193.jpg",
+          "category": "lifestyle"
+        },
+        {
+          "title": "В Прохоровском округе соцконтракт помог маме в декрете открыть парикмахерский кабинет",
+          "description": "Жительница Прохоровского округа Белгородской области Агнесса Городова подписала соцконтракт, чтобы открыть парикмахерский кабинет",
+          "url": "https://www.mk-belgorod.ru/social/2026/02/22/v-prokhorovskom-okruge-sockontrakt-pomog-mame-v-dekrete-otkryt-parikmakherskiy-kabinet.html",
+          "source": "mk",
+          "author": "анна бирюкова",
+          "published_at": "2026-02-22 17:14:01",
+          "image_url": "https://static.mk.ru/upload/entities/2026/02/22/11/articles/facebookPicture/b1/f6/bb/bc/9ed7f9bdea63c9bc6602b78c55bd1a8a.jpg",
+          "category": "lifestyle"
+        },
+        {
+          "title": "Юрист: штрафы за ненадлежащий выгул собак редки, альтернативой мог бы стать налог",
+          "description": "Штрафы за выгул собак в неположенном месте крайне редки, владельцев собак следовало бы обязать платить налог, который пошел бы на уборку экскрементов с улиц. Такое мнение высказал в беседе с ИА Регнум в воскресенье, 22 февраля, юрист, член Палаты судебных экспертов Юрий Капштык. В России ужесточилис...",
+          "url": "https://regnum.ru/news/4020923",
+          "source": "regnum",
+          "author": "",
+          "published_at": "2026-02-22 17:14:00",
+          "image_url": null,
+          "category": "lifestyle"
+        },
+        {
+          "title": "Дворник в Петербурге спас мальчика, летевшего с 7 этажа",
+          "description": "Предварительно известно, что ребенок упал с седьмого этажа и все-таки сломал ногу. У дворника сломаны ребра.",
+          "url": "https://47news.ru/articles/283169/",
+          "source": "news47_ru",
+          "author": "47news.ru",
+          "published_at": "2026-02-22 17:14:00",
+          "image_url": "https://i.47news.ru/titles/2026/02/20260222_zy2lq8x23fef9eofcs1d.jpg",
+          "category": "lifestyle"
+        },
+        {
+          "title": "Снежный капкан: в Костанайской области более 20 человек спасли из сугробов",
+          "description": "Фото: кадр с видео МЧС РК В МЧС сообщили, что в Костанайской области в Денисовском районе, вблизи села Перелески, на автодороге «Костанай – Карабутак» из снежного заноса вызволили семь легковых автомобилей, в которых находились 13 человек. Люди попали в снегопад и самостоятельно не смогли продолжить движение. Эвакуированные в медицинской помощи не нуждались. Позже появилась информация, ...",
+          "url": "https://kz.kursiv.media/2026-02-22/nvbr-snezhnyj-kapkan-v-kostanajskoj-oblasti-spasli-13-chelovek/",
+          "source": "kursiv",
+          "author": "елена вебер",
+          "published_at": "2026-02-22 17:14:00",
+          "image_url": "https://cdn-kz.kursiv.media/wp-content/uploads/2026/02/58.jpeg",
+          "category": "lifestyle"
+        },
+        {
+          "title": "Каменский: уровень хоккейного турнира ОИ был бы выше с участием россиян",
+          "description": "Сборная России пропустила турнир по решению Международной федерации хоккея, ее заменила команда Франции, которая не набрала очков",
+          "url": "https://tass.ru/sport/26525531",
+          "source": "tass",
+          "author": "",
+          "published_at": "2026-02-22 17:13:48",
+          "image_url": "https://cdn-media.tass.ru/fit/400x300_b2b00b17/tass/m2/uploads/i/20260222/8834459.jpg",
           "category": "lifestyle"
         }
       ],
-      "fetched_at": 1771790051.7428653,
+      "fetched_at": 1771823746.5989156,
       "is_stale": false,
-      "api_calls": 1
+      "api_calls": 2
     },
     "headlines_ru_world": {
       "data": [
         {
-          "title": "«Они не хотят воевать». Уиткофф анонсировал «хорошие новости» по Украине",
-          "description": "Через несколько недель могут начаться переговоры, которые впервые сблизят позиции России и Украины. Как спецпосланник США оценивает шансы на прорыв?",
-          "url": "https://news.rambler.ru/articles/56079377-oni-ne-hotyat-voevat-uitkoff-anonsiroval-horoshie-novosti-po-ukraine/",
+          "title": "Десятки коров погибли при пожаре в регионе РФ",
+          "description": "В Нижегородской области в воскресенье вспыхнул пожар в хозяйственной постройке, в результате которого погибли коровы. Подробности сообщили в пресс-службе регионального МЧС.",
+          "url": "https://news.rambler.ru/incidents/56081129-desyatki-korov-pogibli-pri-pozhare-v-regione-rf/",
+          "source": "rambler",
+          "author": "рамблер/новости",
+          "published_at": "2026-02-22 17:14:04",
+          "image_url": "https://news.store.rambler.ru/img/129bfd2e65ab6908a759e6f13a7262cb?img-1-resize=width%3A1280%2Cheight%3A720%2Cfit%3Acover&img-format=auto",
+          "category": "world"
+        },
+        {
+          "title": "Премьер Гренландии Нильсен отверг идею Трампа об отправке госпитального суда на остров",
+          "description": "«У нас есть государственная система здравоохранения, и лечение для граждан бесплатное. Это осознанный выбор, фундаментальная часть нашего общества», — заявил премьер Гренландии Нильсен. В свою очередь министр обороны Дании Троэльс Лунд Поульсен так прокомментировал слова президента США Дональда Трампа об отправке к острову госпитального судна для оказания медицинской помощи: «Гренландия не нуждается во внешней медицинской [...]Сообщение Премьер Гренландии Нильсен отверг идею Трампа об отправке госпитального суда на остров появились сначала на Новости Узбекистана сегодня: nuz.uz.",
+          "url": "https://nuz.uz/2026/02/22/premer-grenlandii-nilsen-otverg-ideyu-trampa-ob-otpravke-gospitalnogo-suda-na-ostrov/",
+          "source": "nuz",
+          "author": "maksad",
+          "published_at": "2026-02-22 17:09:30",
+          "image_url": null,
+          "category": "world"
+        },
+        {
+          "title": "СМИ сообщили о секретном соглашении между Россией и Ираном",
+          "description": "Иран заключил с Россией секретное соглашение о поставках переносных зенитных ракетных комплексов.",
+          "url": "https://news.rambler.ru/politics/56081108-smi-soobschili-o-sekretnom-soglashenii-mezhdu-rossiey-i-iranom/",
           "source": "rambler",
           "author": "газета.ru",
-          "published_at": "2026-02-22 07:49:58",
-          "image_url": "https://news.store.rambler.ru/img/7dcb8bf8d80c64a9210e74576490c6de",
+          "published_at": "2026-02-22 17:07:08",
+          "image_url": "https://news.store.rambler.ru/img/2f5a72f02544f6a2fe08e5c1c9fb6ab6",
           "category": "world"
         },
         {
-          "title": "На Западе высмеяли Зеленского, Каллас и фон дер Ляйен",
-          "description": "Заявления Владимира Зеленского и лидеров ЕС о мнимой победе в противостоянии с Россией являются аффирмациями, их следует рассматривать с точки зрения психологии, заявил в эфире своего YouTube-канала кипрский журналист Алекс...",
-          "url": "https://news.rambler.ru/world/56079695-na-zapade-vysmeyali-zelenskogo-kallas-i-fon-der-lyayen/",
+          "title": "СМИ: в Вашингтоне подтвердили, что новый раунд переговоров состоится в ближайший четверг",
+          "description": "Журналист Барак Равид сообщил: высокопоставленный источник в Вашингтоне подтвердил, что очередной раунд переговоров с Ираном состоится в ближайший четверг, 26 февраля, в Женеве.",
+          "url": "https://www.newsru.co.il/world/22feb2026/iran_us_005.html",
+          "source": "newsru",
+          "author": "",
+          "published_at": "2026-02-22 17:01:52",
+          "image_url": null,
+          "category": "world"
+        },
+        {
+          "title": "Глава МИД Ирана пообещал легитимный ответ в случае нападения США",
+          "description": "В случае атаки США Тегеран будет вынужден нанести легитимный и законный удар по американским военным базам на Ближнем Востоке.",
+          "url": "https://news.rambler.ru/world/56081095-glava-mid-irana-poobeschal-legitimnyy-otvet-v-sluchae-napadeniya-ssha/",
           "source": "rambler",
           "author": "рамблер",
-          "published_at": "2026-02-22 07:41:11",
-          "image_url": "https://news.store.rambler.ru/img/2cefbc8b0eb383e8f28fcc57736016fd",
+          "published_at": "2026-02-22 16:56:57",
+          "image_url": "https://news.store.rambler.ru/img/15819336aaf507617438ffa8f5118e0b",
           "category": "world"
         },
         {
-          "title": "Опубликована схема ночного удара по Киеву",
-          "description": "Мониторинговые ресурсы составили карту комбинированной атаки ракет и дронов ВС РФ на военные и энергетические объекты на Украине.",
-          "url": "https://news.rambler.ru/army/56079674-opublikovana-shema-nochnogo-udara-po-kievu/",
+          "title": "Киркоров рассказал, почему выставил квартиру на продажу",
+          "description": "Филиппа Киркоров до сих пор восстанавливает здоровье после ЧП, произошедшего весной 2025 года. Тогда он загорелся прямо на сцене, находясь на большой высоте.",
+          "url": "https://news.rambler.ru/starlife/56081094-kirkorov-rasskazal-pochemu-vystavil-kvartiru-na-prodazhu/",
           "source": "rambler",
-          "author": "российская газета",
-          "published_at": "2026-02-22 07:40:37",
-          "image_url": "https://news.store.rambler.ru/img/5f67cd1a9f26b319dd6c9de275b18219",
+          "author": "рамблер/новости",
+          "published_at": "2026-02-22 16:53:16",
+          "image_url": "https://news.store.rambler.ru/img/d89a10f6ebb73abe7e8afb8874213062?img-1-resize=width%3A1280%2Cheight%3A720%2Cfit%3Acover&img-format=auto",
           "category": "world"
         },
         {
-          "title": "Российская ракета поразила американский завод по производству сладостей",
-          "description": "Вооруженные силы (ВС) России нанесли ракетный удар по американскому заводу сладостей компании Mondelez в Тростянце на востоке Украины. Завод выпускает печенье Oreo, шоколад Alpen Gold и другие продукты.",
-          "url": "https://news.rambler.ru/army/56079390-rossiyskaya-raketa-porazila-amerikanskiy-zavod-po-proizvodstvu-sladostey/",
+          "title": "Сябитова объяснила, почему не хочет замуж",
+          "description": "Роза Сябитова рассказала о том, что некоторые подписчики жалеют ее как женщину, у которой нет мужчины «на старости лет». Но сама Роза считает свое одиночество благом, пишет издание Super.",
+          "url": "https://news.rambler.ru/starlife/56081060-syabitova-obyasnila-pochemu-ne-hochet-zamuzh/",
+          "source": "rambler",
+          "author": "рамблер/новости",
+          "published_at": "2026-02-22 16:34:09",
+          "image_url": "https://news.store.rambler.ru/img/f812184d62bffc4fa2053063cffa3454?img-1-resize=width%3A1280%2Cheight%3A720%2Cfit%3Acover&img-format=auto",
+          "category": "world"
+        },
+        {
+          "title": "Захарова объяснила важность покаяния со стороны ЕС",
+          "description": "Евросоюз (ЕС) не сможет выйти из кризиса и вернуться на путь нормального развития без покаяния, считает официальный представитель МИД РФ Мария Захарова.",
+          "url": "https://news.rambler.ru/politics/56081056-zaharova-obyasnila-vazhnost-pokayaniya-so-storony-es/",
           "source": "rambler",
           "author": "lenta.ru",
-          "published_at": "2026-02-22 07:38:40",
-          "image_url": "https://news.store.rambler.ru/img/87a7045e957f61aa8bdc1ed2df2337c5",
+          "published_at": "2026-02-22 16:33:13",
+          "image_url": "https://news.store.rambler.ru/img/3335b6618d72bec41149c66ff3fe881b",
           "category": "world"
         },
         {
-          "title": "Судьба режима Хаменеи: бывший командующий ВВС поделился прогнозом",
-          "description": "Иранский режим под руководством Али Хаменеи переживает серьёзный кризис и может прекратить своё существование.",
-          "url": "https://cursorinfo.co.il/world-news/sudba-rezhima-hamenei-byvshij-komanduyushhij-vvs-podelilsya-prognozom/",
-          "source": "cursorinfo",
-          "author": "макс флэир",
-          "published_at": "2026-02-22 07:38:25",
-          "image_url": "https://cursorinfo.co.il/wp-content/uploads/2024/05/Depositphotos_627122810_L-1-400x267.jpg",
-          "category": "world"
-        },
-        {
-          "title": "Продюсер заявил, что Пугачева жила за счет Киркорова",
-          "description": "Леонид Дзюник, бывший директор Киркорова, заявил, что в браке с Филиппом Алла Пугачева жила за счет молодого мужа.",
-          "url": "https://news.rambler.ru/starlife/56079678-prodyuser-zayavil-chto-pugacheva-zhila-za-schet-kirkorova/",
-          "source": "rambler",
-          "author": "рамблер",
-          "published_at": "2026-02-22 07:37:57",
-          "image_url": "https://news.store.rambler.ru/img/e879075175f1f105f5555994d9d93847",
-          "category": "world"
-        },
-        {
-          "title": "В День защитника Отечества в Москву придет оттепель",
-          "description": "Оттепель ждет Москву в начале будущей недели, в понедельник днем температура повысится до минус 1 градуса. Об этом сообщила ведущий метеоролог Гидрометцентра России Марина Макарова, передает РИА Новости.",
-          "url": "https://news.rambler.ru/moscow_city/56079661-v-den-zaschitnika-otechestva-v-moskvu-pridet-ottepel/",
-          "source": "rambler",
-          "author": "рамблер",
-          "published_at": "2026-02-22 07:33:55",
-          "image_url": "https://news.store.rambler.ru/img/01d9ba0654a28a44e8d206ac86643879",
-          "category": "world"
-        },
-        {
-          "title": "Земфира* приостановила карьеру и уехала в Лондон",
-          "description": "Певица Земфира временно приостановила карьеру. Об этом сообщает Telegram-канал Mash. По данным издания, отказалась от масштабных концертов до мая 2026 года. Артистка готова выступить на корпоративе минимум за €150 тысяч (около 1 354 200 рублей по текущему курсу).",
-          "url": "https://news.rambler.ru/starlife/56079631-zemfira-priostanovila-kareru-i-uehala-v-london/",
+          "title": "Фестиваль \"Масленица\" прошел на 30 площадках столицы",
+          "description": "Масштабный фестиваль \"Масленица\" завершился в Москве. Он проводился с 13 по 22 февраля и охватил около 30 площадок города, сообщается на портале мэра и правительства столицы.",
+          "url": "https://news.rambler.ru/moscow_city/56077185-festival-maslenitsa-proshel-na-30-ploschadkah-stolitsy/",
           "source": "rambler",
           "author": "рамблер/новости",
-          "published_at": "2026-02-22 07:22:52",
-          "image_url": "https://news.store.rambler.ru/img/b176a10e487d248a5992234587900a13?img-1-resize=width%3A1280%2Cheight%3A720%2Cfit%3Acover&img-format=auto",
+          "published_at": "2026-02-22 16:30:37",
+          "image_url": "https://news.store.rambler.ru/img/75e527bde27ecd82d3361f94bee15ae0?img-1-resize=width%3A1280%2Cheight%3A720%2Cfit%3Acover&img-format=auto",
           "category": "world"
         },
         {
-          "title": "В Сети появились кадры с провалившейся под лед машиной с туристами на Байкале",
-          "description": "В Сети появилось видео с провалившейся под лед машиной с китайскими туристами на Байкале. На кадрах видно, как единственный выживший в инциденте пассажир пытается выбраться на лед. Очевидцы вытащили иностранца с помощью веревки.",
-          "url": "https://news.rambler.ru/incidents/56079460-v-seti-poyavilis-kadry-s-provalivsheysya-pod-led-mashinoy-s-turistami-na-baykale/",
-          "source": "rambler",
-          "author": "рамблер/новости",
-          "published_at": "2026-02-22 07:22:24",
-          "image_url": "https://news.store.rambler.ru/img/9d177be76538ecb9bf9218a8d7745566?img-1-resize=width%3A1280%2Cheight%3A720%2Cfit%3Acover&img-format=auto",
-          "category": "world"
-        },
-        {
-          "title": "Митинг студентов в Тегеране перерос в акцию протеста",
-          "description": "В Тегеране субботний митинг студентов Технологического университета Шариф, как информирует агентство Fars, перерос в акцию протеста. Группа студентов университета Шариф собралась на митинг в память о погибших в январских событиях.",
-          "url": "https://news.rambler.ru/world/56079553-miting-studentov-v-tegerane-pereros-v-aktsiyu-protesta/",
-          "source": "rambler",
-          "author": "рамблер/новости",
-          "published_at": "2026-02-22 07:20:27",
-          "image_url": "https://news.store.rambler.ru/img/1993bee6a71e3a0be8db86063d888487?img-1-resize=width%3A1280%2Cheight%3A720%2Cfit%3Acover&img-format=auto",
+          "title": "Захарова объяснила важность покаяния со стороны ЕС",
+          "description": "ONLY AVAILABLE IN PAID PLANS",
+          "url": "https://lenta.ru/news/2026/02/22/zaharova-ob-yasnila-neobhodimost-pokayaniya-so-storony-es/",
+          "source": "lenta",
+          "author": "дмитрий воронин",
+          "published_at": "2026-02-22 16:26:04",
+          "image_url": "https://icdn.lenta.ru/images/2026/02/22/18/20260222185254322/pic_fa9a5dba64601b1022b8b1453e02295e.jpg",
           "category": "world"
         }
       ],
-      "fetched_at": 1771790051.9571252,
+      "fetched_at": 1771823746.80227,
       "is_stale": false,
-      "api_calls": 1
+      "api_calls": 2
     },
     "headlines_ru_business": {
       "data": [
         {
-          "title": "Хельсинки Киеву: вы забрали у нас все, ничего не осталось",
-          "description": "Министр иностранных дел Финляндии Элина Валтонен в интервью телеканалу Yle подтвердила, что официальный Хельсинки уже направил Киеву из собственных запасов все, что только было возможно. При этом финский дипломат добавила...",
-          "url": "https://eadaily.com/ru/news/2026/02/22/helsinki-kievu-vy-zabrali-u-nas-vse-nichego-ne-ostalos",
-          "source": "eadaily",
-          "author": "",
-          "published_at": "2026-02-22 07:43:00",
-          "image_url": "https://img8.eadaily.com/c650x400/o/f11/6200f1e62debeb8f888da298bb2c4.jpeg",
-          "category": "business"
-        },
-        {
-          "title": "Конфискация яхты бизнесмена Мельниченко пробила брешь в бюджете Рима",
-          "description": "Огромные траты несет Италия при охране шикарной яхты российского бизнесмена Андрея Мельниченко, конфискованной властями страны. Ежедневно на соответствующие мероприятия Рим тратит около 3 млн рублей, о чем информирует Телеграм-канал SHOT.",
-          "url": "https://eadaily.com/ru/news/2026/02/22/konfiskaciya-yahty-biznesmena-melnichenko-probila-bresh-v-byudzhete-rima",
-          "source": "eadaily",
-          "author": "",
-          "published_at": "2026-02-22 07:37:00",
-          "image_url": "https://img3.eadaily.com/r650x650/o/a3b/fd29f26311fbdeaeece803d220077.jpeg",
-          "category": "business"
-        },
-        {
-          "title": "Экономист Разуваев: «Рубль активно выходит за пределы России»",
-          "description": "Рубль продолжает укреплять позиции",
-          "url": "https://www.mk.ru/economics/2026/02/22/ekonomist-razuvaev-rubl-aktivno-vykhodit-za-predely-rossii.html",
-          "source": "mk",
-          "author": "фото: олег макаров",
-          "published_at": "2026-02-22 07:32:52",
-          "image_url": "https://static.mk.ru/upload/entities/2026/02/22/10/articles/facebookPicture/c8/35/13/12/92091e448fbcc9bfb81cdf4d7f5e4652.jpg",
-          "category": "business"
-        },
-        {
-          "title": "Певица Земфира* сделала вынужденную паузу в выступлениях до мая",
-          "description": "Российская певица Земфира❶ переехала в Лондон из Парижа. В Великобритании, как сообщает Телеграм-канал MASH, намерена отдохнуть от гастролей, плюс заняться очищением души и тела.",
-          "url": "https://eadaily.com/ru/news/2026/02/22/pevica-zemfira-sdelala-vynuzhdennuyu-pauzu-v-vystupleniyah-do-maya",
-          "source": "eadaily",
-          "author": "",
-          "published_at": "2026-02-22 07:25:00",
-          "image_url": "https://img5.eadaily.com/c650x400/o/c63/9a295ef16174135cd12e1eeab81b6.jpeg",
-          "category": "business"
-        },
-        {
-          "title": "Приведена статистика банкротства в РФ: какие у россиян долги",
-          "description": "У большинства россиян-банкротов долг не превышает 500 тысяч рублей.",
-          "url": "https://news.mail.ru/economics/69905701/",
-          "source": "news_mail",
-          "author": "дмитрий акатьев",
-          "published_at": "2026-02-22 07:24:10",
-          "image_url": "https://resizer.mail.ru/p/d708c1fa-b212-540c-a400-32fb4ef36c09/AQAG65uS63cNeWyUmBfvy72tyVqCXBI0Hxjewms-EQgNDbPlCZmScwwEhJJmmsA0kfDmxErB-WgcTdHYMjlSykHMMNk.jpg",
-          "category": "business"
-        },
-        {
-          "title": "В январе поступления от туристического сбора выросли на 14,3%",
-          "description": "В январе 2026 года местные бюджеты получили 28,4 млн. грн. туристического сбора. Это на 14,3% больше, чем за аналогичный период в прошлом году, когда было перечислено 24,9 млн грн. Рейтинг самых привлекательных туристических мест в Украине возглавили Львовщина, Франковщина, Закарпатье и Киев.",
-          "url": "https://news.finance.ua/ru/v-yanvare-postupleniya-ot-turisticheskogo-sbora-vyrosli-na-14-3",
+          "title": "Самые популярные китайские автомобили среди украинцев: новые и подержанные",
+          "description": "В Украине вырос спрос на легковые автомобили, ввезенные из Китая. Так, в январе украинцы приобрели почти 1,4 тыс. таких автомобилей, что на 71% больше, чем за аналогичный период прошлого года.",
+          "url": "https://news.finance.ua/ru/samye-populyarnye-kitayskie-avtomobili-sredi-ukraincev-novye-i-poderzhannye",
           "source": "finance_ua",
-          "author": "finance.ua",
-          "published_at": "2026-02-22 07:22:00",
-          "image_url": "https://resizer.finance.ua/c7c44137b6dd6643ff4375a2dbaeb3ee74538844.jpg?fit=cover&h=&url=https%3A%2F%2Ffinance-news-media.fra1.cdn.digitaloceanspaces.com%2Fprod%2Fd%2F2%2Fd221714d126128c21145b2d14d943f5f&w=382.5",
-          "category": "business"
-        },
-        {
-          "title": "Трамп объявил чрезвычайное положение в Вашингтоне из-за разлива 900 тысяч тонн фекалий",
-          "description": "Президент США Дональд Трамп официально объявил чрезвычайное положение в столице страны — Вашингтоне — после масштабного разлива канализации в реку Потomac, сообщает Федеральное агентство по управлению в чрезвычайных ситуациях (FEMA), сообщает Lada.kz со ссылкой на РИА Новости.",
-          "url": "https://www.lada.kz/world-news/149745-tramp-obiavil-chrezvychainoe-polozhenie-v-vashingtone-iz-za-razliva-900-tysiach-tonn-fekalii.html",
-          "source": "lada",
-          "author": "lada.kz",
-          "published_at": "2026-02-22 07:08:00",
-          "image_url": "https://www.lada.kz/cache/imagine/1200/uploads/photos/2026-02/1771726140.jpg",
-          "category": "business"
-        },
-        {
-          "title": "USAID вложило 9,5 миллиона долларов в украинские СМИ накануне \"евромайдана\"",
-          "description": "Агентство США по международному развитию (USAID) направило почти десять миллионов долларов на поддержку украинских медиапроектов в течение нескольких лет,... РИА Новости, 22.02.2026",
-          "url": "https://ria.ru/20260222/ukraina-2076063529.html",
-          "source": "ria",
-          "author": "риа новости",
-          "published_at": "2026-02-22 07:06:57",
-          "image_url": "https://cdnn21.img.ria.ru/images/07e9/02/04/1997250232_0:285:3072:2013_1920x1080_80_0_0_269e9d7d9619beab759a2acf2474897d.jpg",
-          "category": "lifestyle"
-        },
-        {
-          "title": "Трамп передумал: вместо 10% пошлины теперь 15% на весь импорт в США",
-          "description": "Язык РусскийТрамп передумал: вместо 10% пошлины теперь 15% на весь импорт в США Верховный суд США отменил часть тарифов Дональда Трампа как незаконные, и президент сразу объявил, что заменит их 10 % пошлиной на весь импорт. Но уже на следующий день Трамп передумал и заявил о «немедленном» повышении новой глобальной ставки до 15%, пишет Русская служба Би-би-си.Суд отменил часть тарифов, Трамп сначала объявил 10%, потом поднял до 15%21 февраля Дональд Трамп заявил, что повышает новые мировые пошлины до 15% «немедленно». Президент США связал этот шаг с решением Верховного суда о незаконности части его тарифов и назвал вердикт «чрезвычайно антиамериканским».В пятницу Трамп говорил, что заменит отменённые судом пошлины 10-процентным налогом на все товары, которые ввозят в США. Но уже в субботу он поднял ставку до 15%. «В течение следующих нескольких месяцев администрация Трампа определит и введёт новые, юридически допустимые пошлины, которые продолжат наш чрезвычайно успешный процесс возрождения величия Америки», — написал Трамп в Truth Social.В пятницу Верховный суд США признал незаконной часть масштабных импортных пошлин, которые Трамп вводил ранее. Суд проголосовал 6 голосами против 3 и решил, что президент превысил полномочия, когда ввёл пошлины на основе закона для чрезвычайных ситуаций национального масштаба. Судьи подчеркнули: для пошлин на импорт президенту нужно одобрение Конгресса.Трамп назвал это решение «глубоко разочаровывающим» и в пятницу объявил о переходе на 10% налог на весь импорт. На следующий день он поднял планку до 15%.Бывший торговый переговорщик США Дэниел Маллани, который работал и при Трампе, и при Обаме, сказал Би-би-си, что его удивил старт с 10%. По словам Маллани, многие ожидали, что Трамп сразу выберет Раздел 122 и поставит максимальную ставку 15%. Он добавил: 10% стали неожиданностью, а 15% уже выглядят логичнее.Маллани также отметил: пока непонятно, какие страны попадут под новые пошлины и как именно они будут работать вместе с уже действующими тарифами — «накладываться» сверху или включать их в себя.Что такое Раздел 122 и можно ли обойти ограничение в 150 днейПосле решения Верховного суда Трамп заявил, что введёт новые пошлины почти на весь импорт в США по закону, который раньше никто не применял: это Раздел 122 Закона о торговле 1974 года. Он позволяет президенту вводить тарифы до 15% на срок до 150 дней на импорт из всех стран без одобрения Конгресса. После этого Конгресс должен вмешаться.При этом Институт Като, аналитический центр правого толка, указывает на потенциальную лазейку: Раздел 122 прямо не запрещает президенту после истечения 150 дней объявить новое чрезвычайное положение и снова ввести такие же меры.Реакция Европы и позиция ВеликобританииВ Европе на заявление Трампа отреагировали жёстко. Канцлер Германии Фридрих Мерц назвал «ядом» постоянную неопределённость вокруг тарифов и заявил, что она вредит экономикам Европы и США. Он сказал журналистам, что будет тесно работать с другими странами ЕС, чтобы сформировать общую позицию перед поездкой в США, и добавил: в Вашингтон он поедет с «скоординированной европейской позицией».Президент Франции Эмманюэль Макрон заявил, что Франция внимательно изучит последствия новых глобальных действий и «адаптируется». Он подчеркнул: «справедливые правила предполагают взаимность, а не односторонние решения». Макрон также сказал, что нужно стремиться к подходу, который снизит напряжённость на международной арене, и продолжать модернизацию экономики.Правительство Великобритании заявило, что ожидает сохранения «привилегированного торгового положения страны в отношениях с США». В пятницу представитель Белого дома сказал, что страны, которые раньше заключили торговые соглашения с США, включая Великобританию, всё равно подпадут под глобальный тариф по Разделу 122, а не под ставку, о которой они договорились ранее.При этом британские договорённости по стали, алюминию, фармацевтической продукции, автомобилям и аэрокосмической отрасли, которые дают основную часть торговли с США, это решение не затронуло. Даунинг-стрит подчёркивает: теперь Вашингтон должен решить, сохранят ли эти соглашения силу. Представитель британского правительства добавил, что Лондон в любом случае ждёт сохранения «привилегированного торгового положения» и будет работать с администрацией США, чтобы понять, как решение повлияет на тарифы для Великобритании и остального мира.Сергей СташевскийЧитайте также:Верховный суд США отменил глобальные тарифы Трампа: что будет с пошлинамиТрамп заменил отменённые тарифы временной пошлиной 10% для всего мира Рубрика: Политика Язык Русский Мир Язык Русский Контекстные ключевые слова (Tags): Трамп поднял пошлины до 15%глобальная пошлина СШАновый мировой тариф Трампапошлины Трампатарифы Трампаглобальный тарифСШАДональд Трампрешение Верховного суда США тарифыВерховный суд признал тарифы незаконнымии Конгресс США одобрение тарифовреакция Европы на тарифы СШАФридрих Мерц неопределённость тарифовЭмманюэль МакронВеликобританияБелый домглобальный тариф для стран с соглашениямитарифы США для ВеликобританииПодрубрика: Семиднeвная ПанорамаПродвигать материал: 0Просмотры: 0Период: воскресенье, февраля 22, 2026",
-          "url": "https://esp.md/ru/sobytiya/2026/02/22/tramp-peredumal-vmesto-10-poshliny-teper-15-na-ves-import-v-ssha",
-          "source": "esp_md",
-          "author": "олеся белая",
-          "published_at": "2026-02-22 06:58:37",
-          "image_url": "https://esp.md/sites/default/files/styles/post-full-read-730/adaptive-image/public/tramp_15_vmesto_10.jpg?itok=CNhx6gu4",
-          "category": "lifestyle"
-        },
-        {
-          "title": "Неутешительная статистика: россияне все чаще банкротятся при долге до 500 тыс. рублей",
-          "description": "Эксперты изучили содержимое базы данных одного из бюро кредитных историй России и выявили интересный факт. По данным РБК, большинство россиян, признанных банкротами, имели сумму долга до 500 тысяч рублей.",
-          "url": "https://eadaily.com/ru/news/2026/02/22/neuteshitelnaya-statistika-rossiyane-vse-chashche-bankrotyatsya-pri-dolge-do-500-tys-rubley",
-          "source": "eadaily",
           "author": "",
-          "published_at": "2026-02-22 06:29:00",
-          "image_url": "https://img1.eadaily.com/c650x400/o/84a/c1d55e7cd449bb043a3c2bfbad5d8.jpeg",
+          "published_at": "2026-02-22 17:12:00",
+          "image_url": null,
+          "category": "business"
+        },
+        {
+          "title": "Четыре столичных аэропорта начали принимать рейсы по согласованию",
+          "description": "Аэропорты Внуково, Шереметьево, Домодедово и Жуковский принимают и отправляют самолеты по согласованию. Об этом сообщила пресс-служба Росавиации.",
+          "url": "https://www.kommersant.ru/doc/8460543",
+          "source": "kommersant_ru",
+          "author": "коммерсантъ",
+          "published_at": "2026-02-22 17:09:16",
+          "image_url": "https://im2.kommersant.ru/ContentFlex/images/photoMain_dummy.jpeg",
+          "category": "business"
+        },
+        {
+          "title": "Проникший в поместье Трампа направил дробовик на силовиков",
+          "description": "ONLY AVAILABLE IN PAID PLANS",
+          "url": "https://www.vedomosti.ru/politics/news/2026/02/22/1178338-pronikshii-napravil",
+          "source": "vedomosti",
+          "author": "ведомости",
+          "published_at": "2026-02-22 17:06:09",
+          "image_url": null,
+          "category": "business"
+        },
+        {
+          "title": "Трамвай сошел с рельсов в Магнитогорске",
+          "description": "В левобережной части Магнитогорска трамвайный вагон сошел с рельсов.",
+          "url": "https://aif.ru/incidents/tramvay-soshel-s-relsov-v-magnitogorske",
+          "source": "aif",
+          "author": "никита локтионов",
+          "published_at": "2026-02-22 17:02:22",
+          "image_url": "https://aif-s3.aif.ru/images/045/181/6c250237e30ab69e75a4e85b37a3ff72.webp",
+          "category": "business"
+        },
+        {
+          "title": "МВД Татарстана зовет ветеранов СВО на службу: пять тысяч вакансий и надбавка 50% к окладу",
+          "description": "Новости . МВД Татарстана зовет ветеранов СВО на службу: пять тысяч вакансий и надбавка 50% к окладу – На специализированной ярмарке вакансий в Казани МВД по Республике Татарстан представило предложения для участников СВО. Всего в ведомстве открыто около 22/02/2026",
+          "url": "https://kazanfirst.ru/news/mvd-tatarstana-zovet-veteranov-svo-na-sluzhbu-pyat-tysyach-vakansij-i-nadbavka-50-k-okladu",
+          "source": "kazanfirst",
+          "author": "алексей новиков",
+          "published_at": "2026-02-22 17:01:45",
+          "image_url": "https://kazanfirst.ru/wp-content/uploads/2024/02/policziya-4.jpg",
+          "category": "business"
+        },
+        {
+          "title": "Проникшего в имение Трампа застрелили, когда он навел оружие на силовиков",
+          "description": "Мужчина, проникший на территорию поместья президента США Дональда Трампа Мар-а-Лаго в штате Флорида, был застрелен после того, как навел оружие на силовиков. Об этом 22 февраля заявил на пресс-конференции шериф округа Палм-Бич Рик Брэдшоу. Он рассказал, что инцидент произошел в 01:30 по местному вре...",
+          "url": "https://regnum.ru/news/4020930",
+          "source": "regnum",
+          "author": "",
+          "published_at": "2026-02-22 16:39:00",
+          "image_url": null,
+          "category": "lifestyle"
+        },
+        {
+          "title": "Экономический щит для России: Трамп лишился права на ввод вторичных санкций за нефть",
+          "description": "Верховный суд США отменил пошлины Трампа, ограничив его власть в торговых войнах. Это решение поможет партнёрам России и накажет союзников США.Трамп нарушил Конституцию СШАВводя пошлины на основании Закона о чрезвычайных экономических полномочиях (IEEPA) от 1977 года, Трамп поставил целью вернуть производство в США, а также сделать положительным хронически дефицитный торговый баланс (обе цели, согласно статистике, не достигнуты). Эти меры Трамп использовал как экономическую дубинку, чтобы решать политические проблемы. Однако 20 февраля Верховный суд США признал их неконституционными. Сразу скажем, что суд не запретил введение тарифов, он лишь заявил, что IEEPA не может использоваться для получения дохода.По мнению судей, Трамп превысил свои полномочия, так как право устанавливать налоги и сборы принадлежит исключительно Конгрессу. По разным оценкам, правительство США может столкнуться с необходимостью вернуть торговым партнёрам и собственным импортёрам от 130 до 175 млрд долл. (половина от собранной суммы). Трамп резко раскритиковал судей, назвав их \"глупцами\" и \"комнатными собачками\", и заявил, что их надо проверить на служение иностранным интересам.",
+          "url": "https://www.pravda.ru/economics/2334643-us-supreme-court-trump-tariffs-ruling/",
+          "source": "pravda_ru",
+          "author": "любовь степушова",
+          "published_at": "2026-02-22 16:32:00",
+          "image_url": "https://img.pravda.ru/image/preview/article/6/4/3/2334643_amp.jpeg",
+          "category": "business"
+        },
+        {
+          "title": "Украинские беженцы быстрее других находят работу в Германии",
+          "description": "Половина украинских беженцев, приехавших в Германию в первые шесть месяцев полномасштабной войны РФ против Украины, смогли трудоустроиться в течение трех с половиной лет пребывания в ФРГ. Это происходит гораздо быстрее, чем у мигрантов предыдущих волн.",
+          "url": "https://news.finance.ua/ru/ukrainskie-bezhency-bystree-drugih-nahodyat-rabotu-v-germanii",
+          "source": "finance_ua",
+          "author": "",
+          "published_at": "2026-02-22 16:22:00",
+          "image_url": null,
+          "category": "business"
+        },
+        {
+          "title": "Подсчитано, сколько придется переплатить в случае повышения пошлин в США",
+          "description": "Мировым поставщикам товаров в США придется переплатить свыше 160 миллиардов долларов в случае повышения Штатами импортных пошлин до 15% с 10%, подсчитало РИА... | 22.02.2026, ПРАЙМ",
+          "url": "https://1prime.ru/20260222/ssha-867722305.html",
+          "source": "prime1_ru",
+          "author": "прайм",
+          "published_at": "2026-02-22 16:14:00",
+          "image_url": "https://cdnn.1prime.ru/img/83639/09/836390910_0:205:3073:1933_1920x0_80_0_0_8027d06c29e5af9e8ef7deffc3008f23.jpg.webp",
+          "category": "business"
+        },
+        {
+          "title": "ЕС может заморозить утверждение торговой сделки с США из-за новых пошлин Трампа",
+          "description": "Председатель комитета по вопросам торговли Европейского парламента Бернд Ланге предложит заморозить процесс ратификации торгового соглашения между Европейским Союзом и США пока президент США Дональд Трамп не объяснит свою торговую политику.",
+          "url": "https://epravda.com.ua/rus/svit/es-otreagiroval-na-novye-poshliny-trampa-818269/",
+          "source": "epravda",
+          "author": "экономическая правда",
+          "published_at": "2026-02-22 16:00:00",
+          "image_url": null,
           "category": "business"
         }
       ],
-      "fetched_at": 1771790068.4349194,
+      "fetched_at": 1771823762.4270656,
       "is_stale": false,
-      "api_calls": 1
+      "api_calls": 2
     },
     "headlines_ru_science": {
       "data": [
+        {
+          "title": "Президент Туркменистана утвердил направление студентов на обучение в Румынию",
+          "description": "Государственная политика Туркменистана, нацеленная на подготовку высококвалифицированных национальных кадров, получила дальнейшее развитие в рамках расширения международного образовательного сотрудничества. Президент Сердар Бердымухамедов в ходе очередного заседания Кабинета Министров, которое прошло в формате цифровой связи, рассмотрел и утвердил инициативу об организации обучения туркменской молодежи в высших учебных заведениях Румынии. Данное решение касается предстоящего учебного года и открывает [...]",
+          "url": "https://arzuw.news/prezident-turkmenistana-utverdil-napravlenie-studentov-na-obuchenie-v-rumyniju",
+          "source": "arzuw",
+          "author": "arzuw news",
+          "published_at": "2026-02-22 15:02:02",
+          "image_url": "https://arzuw.news/wp-content/uploads/2026/02/rumynya.jpg",
+          "category": "science"
+        },
+        {
+          "title": "Сила рассола",
+          "description": "Расскажу-ка я вам сегодня одну байку про СИЛУ РАССОЛА.Красивых фотографий и расчетов в этот раз не будет, потому что слышала я эту историю один раз, в питерском ААНИИ, когда спецы по ледоколам обсуждали, что видели за полярным кругом.В старых детских энциклопедиях Арктику рисовали как сплошную ледовую пустыню, по которой куда-то бредут белые медведи. На самом деле, сплошная ледовая пустыня там не везде и не всегда. Теплые циклоны, текущие с юга реки, круглосуточное солнце полярным днем - все это топит лед, и не всегда предсказуемым образом.В зависимости от погодных условий, лед намерзает, тает, перемещается, снова смерзается... Интересного в этих льдах невероятно много, но давайте сейчас про такую внезапную штуку, как взрывающиеся лужи. Читать далее",
+          "url": "https://habr.com/ru/articles/1002400/",
+          "source": "habr",
+          "author": "catscience",
+          "published_at": "2026-02-22 13:30:14",
+          "image_url": "https://habrastorage.org/r/w1560/getpro/habr/upload_files/2e2/ebb/bc9/2e2ebbbc92024778213a20b8ae668e0f.jpg",
+          "category": "science"
+        },
+        {
+          "title": "Заглянуть в запретное",
+          "description": "Неуязвимый самолёт-разведчик был сокровенной мечтой звёздно-полосатых ВВС и ЦРУ со времён приснопамятного полёта Пауэрса. Развитие беспилотной авиации приблизило эту мечту к воплощению. Однако путь к недосягаемому для противовоздушной обороны «небесному пластуну» оказался отнюдь не простым, а результаты тридцати лет страданий американцы разглашают весьма неохотно. Но мы о них всё-таки расскажем. Читать далее",
+          "url": "https://habr.com/ru/articles/1002398/",
+          "source": "habr",
+          "author": "cat.cat",
+          "published_at": "2026-02-22 11:30:49",
+          "image_url": "https://habrastorage.org/r/w1560/getpro/habr/upload_files/caf/a96/fae/cafa96faeab3f657bb31b71771548931.jpeg",
+          "category": "science"
+        },
+        {
+          "title": "Ученые заявили об исчезновении пятен на солнце",
+          "description": "ONLY AVAILABLE IN PAID PLANS",
+          "url": "https://lenta.ru/news/2026/02/22/uchenye-zayavili-ob-ischeznovenii-pyaten-na-solntse/",
+          "source": "lenta",
+          "author": "варвара кошечкина",
+          "published_at": "2026-02-22 09:53:00",
+          "image_url": "https://icdn.lenta.ru/images/2026/02/22/12/20260222125350071/pic_5dfeef7708c0d7bdf7203ff7a0abb59b.jpg",
+          "category": "science"
+        },
+        {
+          "title": "Туркменские школьники смогут продолжить обучение в ведущих университетах США",
+          "description": "В интервью телеканалу «Аль-Арабия» Национальный Лидер туркменского народа, Председатель Халк Маслахаты Туркменистана Гурбангулы Бердымухамедов осветил ход реформ в образовательной сфере и значение английского языка для подрастающего поколения. Об этом сообщает интернет-издание “Туркменистан: Золотой век”. Герой-Аркадаг подчеркнул, что изучение английского стало обязательным компонентом национальной образовательной системы. Язык преподается во всех общеобразовательных школах страны, а в четырех ведущих [...]",
+          "url": "https://arzuw.news/turkmenskie-shkolniki-smogut-prodolzhit-obuchenie-v-vedushhih-universitetah-ssha",
+          "source": "arzuw",
+          "author": "arzuw news",
+          "published_at": "2026-02-22 09:35:48",
+          "image_url": "https://arzuw.news/wp-content/uploads/2025/07/default_image.jpg",
+          "category": "science"
+        },
+        {
+          "title": "Ученые зафиксировали нулевой индекс вспышечной активности на Солнце",
+          "description": "На обращенной к Земле стороне Солнца не осталось ни одного пятна.",
+          "url": "https://www.mk.ru/science/2026/02/22/uchenye-zafiksirovali-nulevoy-indeks-vspyshechnoy-aktivnosti-na-solnce.html",
+          "source": "mk",
+          "author": "анастасия макарова",
+          "published_at": "2026-02-22 08:12:00",
+          "image_url": "https://static.mk.ru/upload/entities/2026/02/22/11/articles/facebookPicture/3d/69/6d/b2/c3bc1c1f1145ce1c691aabd735513876.jpg",
+          "category": "science"
+        },
         {
           "title": "В НАСА захотели вернуть в сборочный цех аппарат Artemis II",
           "description": "ONLY AVAILABLE IN PAID PLANS",
@@ -653,76 +713,125 @@
           "published_at": "2026-02-22 01:23:00",
           "image_url": "https://img.pravda.ru/image/preview/article/6/0/5/2334605_amp.jpeg",
           "category": "science"
-        },
-        {
-          "title": "Солнце погрузится в затяжную депрессию",
-          "description": "ONLY AVAILABLE IN PAID PLANS",
-          "url": "https://lenta.ru/news/2026/02/22/solntse-pogruzitsya-v-zatyazhnuyu-depressiyu/",
-          "source": "lenta",
-          "author": "александра синицына",
-          "published_at": "2026-02-22 00:20:54",
-          "image_url": "https://icdn.lenta.ru/assets/webpack/images/lenta_og.8735b949.png",
-          "category": "science"
-        },
-        {
-          "title": "Кризис нарратива в крипто индустрии и для чего на самом деле нужна децентрализация",
-          "description": "В крипте налицо кризис нарратива. Кризис мысли, философии. Есть только скамеры на верхах, которые каждый день придумывают способы, как же заработать еще пару миллиардов на бедолагах там внизу, и огромная толпа жадных до наживы хомяков, которые с огромным удовольствием скупают перешиленные токены и всякие экскременты по типу телеграм подарков. Вот взять того же Дурова и TON, раз уж про них заговорили. Огромный мессенджер, огромная база потенциальных пользователей блокчейна. Ну как можно было все это просрать? Поддерживать бесполезные тапалки, ходить хвалиться - ой как у нас выросло количество кошельков в сети TON. Конечно, блять, выросло, когда только я лично знаю несколько команд, которые имели тысячи аккаунтов в хомяке/катизен/мажоре и прочих скаминах.При этом TVL блокчейна (количество заблокированных на смарт-контрактах средств) на сегодняшний день $85 млн., а общий объем торгов токенов $TON - $138 млн. Противно смотреть во что превратился некогда очень перспективный и популярный блокчейн. Преданная фанатская база прощала вам все косяки. Ждала - ну вот-вот все получится, ну не все сразу, ну нужно время на развитие. А вы в ответ - ловите еще пачку телеграм подарков, бедолаги. И возвращайтесь на заводы. Читать далее",
-          "url": "https://habr.com/ru/articles/1002314/",
-          "source": "habr",
-          "author": "mediametriqa",
-          "published_at": "2026-02-21 22:15:47",
-          "image_url": null,
-          "category": "science"
-        },
-        {
-          "title": "Решаем уравнение Бомбелли, или Почему квадратных корней из отрицательных чисел не бывает",
-          "description": "Уравнение – традиционная иллюстрация к истории появления комплексных чисел в алгебре. Не удивительно: именно на примере этого уравнения итальянский инженер-математик 16 века Бомбелли показывал, как можно «разобраться с радикалами нового типа», которые он обнаружил. В статье решим это знаменитое уравнение несколькими способами, выведем формулу Кардано, – без которой рассказ об истории комплексных чисел тоже никогда не обходится, – попутно разберёмся, откуда именно в формуле возникает загадочное «отрицательное число под знаком квадратного корня». Кроме того, увидим, что на пути решения кубических уравнений дважды используются разные методы имени Виета, и выясним, действительно ли (каламбур) тут нужны комплексные числа или нет, и использовал ли их Бомбелли.В статье много многоэтажных формул. Способы решения уравнений рассматриваются с вычислительной, но не с «численной», точки зрения, поэтому упоминаются и программирование, и алгоритмы, но обошлось без кода на Rust. Читать далее",
-          "url": "https://habr.com/ru/articles/1002304/",
-          "source": "habr",
-          "author": "vened",
-          "published_at": "2026-02-21 19:29:21",
-          "image_url": "https://habrastorage.org/getpro/habr/upload_files/09d/f62/2db/09df622dbb96fd40970b7c108c849e5a.gif",
-          "category": "science"
-        },
-        {
-          "title": "Слияние капитала, ии и технологий",
-          "description": "Ии сейчас одна из технологий. Но в скором будущем это будет совсем не так.Основной фактор роста торговая схема: капитал ↔ наука, технология.Данная связка работала столетиями. Грядет новое будущее, концептуально отличное от того, к чему мы привыкли. Капитал ↔ наука, технология ↔ ии. Этот золотой треугольник будет обладать положительно обратной связью каждого элемента с каждым.Капитал усиляет исследования и технологии, исследования и технологии усиляют показатели капитала, исследования усиляют ии, ии выбирает куда лучше вложить капитал - выбирает оптимальный путь управления капиталом, капитал усиливает ии, и ии ускоряет технологии, являясь катализатором исследований. Проводит научную работу.Капитал, это всего лишь один очень сильный мем.Древняя схема: доминирующий капитал — земля, скот и крестьяне, далее капитал — корабль, торговый путь, затем машины, станки и оборудование, далее капитал это чистая технология, очищенный мем и человеческий интеллект. Те компании, что торгуют мемами или обеспечивают мемную инфраструктуру имеют наибольшие показатели, остальные торгующие лесом, сталью, нефтью, газом и т. д. идут всеми силами в омемивании производства.Какая же следующая стадия, следующий логический шаг? Следующий шаг",
-          "url": "https://habr.com/ru/articles/1002296/",
-          "source": "habr",
-          "author": "appet1te",
-          "published_at": "2026-02-21 18:57:10",
-          "image_url": "https://habrastorage.org/r/w1560/getpro/habr/upload_files/8e8/2c0/2bc/8e82c02bc222e61431ede5c3f39c1a71.PNG",
-          "category": "science"
-        },
-        {
-          "title": "Классификация Новикова-Волкова открывает путь к пониманию комплексных соединений металлов",
-          "description": "Построена классификация анион-анионных взаимодействий комплексных соединений рения. Подробно классификация изложена в оригинальной статье Новикова-Волкова:DOI: 10.1016/j.pcrysgrow.2025.100687 Читать далее",
-          "url": "https://habr.com/ru/articles/1002270/",
-          "source": "habr",
-          "author": "mak_o",
-          "published_at": "2026-02-21 16:57:16",
-          "image_url": "https://habrastorage.org/r/w1560/getpro/habr/upload_files/e33/3e9/548/e333e9548e9f92c018116275afdc4565.jpg",
-          "category": "science"
-        },
-        {
-          "title": "НАСА откладывает лунную миссию из-за утечки",
-          "description": "В США готовятся вернуть ракету лунной миссии Artemis II со стартовой площадки обратно в сборочный цех",
-          "url": "https://www.mk.ru/science/2026/02/21/nasa-otkladyvaet-lunnuyu-missiyu-izza-utechki.html",
-          "source": "mk",
-          "author": "",
-          "published_at": "2026-02-21 16:42:43",
-          "image_url": "https://static.mk.ru/upload/entities/2026/02/21/19/articles/facebookPicture/56/0d/90/7e/4c6c5979f4ab626d33cc4c4011618cd3.jpg",
-          "category": "science"
         }
       ],
-      "fetched_at": 1771790068.7403889,
+      "fetched_at": 1771823762.6413643,
+      "is_stale": false,
+      "api_calls": 2
+    },
+    "headlines_ru_technology": {
+      "data": [
+        {
+          "title": "Около 50 рейсов задержаны или отменены в аэропортах Москвы на фоне атаки БПЛА",
+          "description": "Порядка 50 рейсов задержаны или отменены в московских аэропортах на фоне массовой атаки беспилотников на столичный регион. Читать далее",
+          "url": "https://russian.rt.com/russia/news/1598929-okolo-50-reis-zaderzhan",
+          "source": "rt_ru",
+          "author": "rt на русском",
+          "published_at": "2026-02-22 17:21:31",
+          "image_url": "https://russian.rt.com/static/blocks/og-img/pl-17.jpg",
+          "category": "technology"
+        },
+        {
+          "title": "Гофрокартон: экологичная упаковка для современного бизнеса",
+          "description": "Сегодня упаковка играет куда более важную роль, чем просто защита товара при транспортировке. Она стала полноценным инструментом маркетинга, способным сформировать первое впечатление о компании и укре...",
+          "url": "https://chaspik.spb.ru/news/3126865-gofrokarton-ekologichnaya-upakovka-dlya-sovremennogo-biznesa.html",
+          "source": "chaspik",
+          "author": "",
+          "published_at": "2026-02-22 17:18:45",
+          "image_url": "https://chaspik.spb.ru/pikimages/0/386/gofrokarton-ekologichnaya-upakovka-dlya-sovremennogo-biznesa.jpg",
+          "category": "technology"
+        },
+        {
+          "title": "Apple представит «как минимум пять продуктов» на презентации 4 марта",
+          "description": "На прошлой неделе Apple анонсировала презентацию, которая пройдёт 4 марта в Нью-Йорке. Теперь же стало известно, что компания представит широкой публике «как минимум пять продуктов». Об этом сообщил журналист Bloomberg Марк Гурман (Mark Gurman). Источник изображения: 9to5mac.com",
+          "url": "https://3dnews.ru/1137252",
+          "source": "3dnews",
+          "author": "3dnews",
+          "published_at": "2026-02-22 16:46:00",
+          "image_url": "https://3dnews.ru/assets/external/illustrations/2026/02/22/1137252/169.jpg",
+          "category": "technology"
+        },
+        {
+          "title": "На Ставрополье семья бойца СВО улучшит жилищные условия",
+          "description": "Вдове участника СВО из Ипатовского округа Ставрополья вручили жилищный сертификат",
+          "url": "https://kavkaz.mk.ru/social/2026/02/22/na-stavropole-semya-boyca-svo-uluchshit-zhilishhnye-usloviya.html",
+          "source": "mk",
+          "author": "екатерина юдина",
+          "published_at": "2026-02-22 16:26:30",
+          "image_url": "https://static.mk.ru/upload/entities/2026/02/22/19/articles/facebookPicture/14/86/5b/f4/308662febf8038c885ce5cee67cc044c.jpg",
+          "category": "technology"
+        },
+        {
+          "title": "Иностранцы из Эстонии, Британии и Казахстана получили российские паспорта",
+          "description": "Новыми гражданами России стали многодетная семья из Эстонии, уроженец Великобритании и заключивший контракт с Минобороны уроженец Казахстана.",
+          "url": "https://vz.ru/news/2026/2/22/1396822.html",
+          "source": "vz_ru",
+          "author": "ольга иванова",
+          "published_at": "2026-02-22 16:09:31",
+          "image_url": "https://img.vz.ru/upimg/soc/soc_1396822.png",
+          "category": "technology"
+        },
+        {
+          "title": "Авария на 90-м шоссе, пострадавшие эвакуированы военным вертолетом",
+          "description": "Фельдшеры и парамедики \"Ихуд Ацала\" оказали неотложную помощь пострадавшим в результате аварии, после чего двое пострадавших были эвакуированы в больницу военным вертолетом.",
+          "url": "https://www.newsru.co.il/israel/22feb2026/gilgal509.html",
+          "source": "newsru",
+          "author": "",
+          "published_at": "2026-02-22 15:57:24",
+          "image_url": "https://images.newsru.co.il/l/233/37/2333702.jpg?cb=1771776147",
+          "category": "technology"
+        },
+        {
+          "title": "Авиакомпании завершили вывозные рейсы российских туристов с Кубы",
+          "description": "Авиакомпании завершили плановые вывозные рейсы российских туристов с Кубы.",
+          "url": "https://www.rbc.ru/rbcfreenews/699b1db29a79472985897dfd",
+          "source": "rbc",
+          "author": "антонина сергеева",
+          "published_at": "2026-02-22 15:39:09",
+          "image_url": "https://s0.rbk.ru/v6_top_pics/media/img/2/92/347717736990922.jpeg",
+          "category": "technology"
+        },
+        {
+          "title": "Ни денег, ни стендапа: ставрополец стал жертвой мошенничества при покупке билетов на шоу",
+          "description": "На Ставрополье 20-летний молодой человек лишился денежных средств при попытке купить билеты на стендап-шоу, сообщает пресс-служба регионального управления МВД",
+          "url": "https://kavkaz.mk.ru/incident/2026/02/22/ni-deneg-ni-stendapa-stavropolec-stal-zhertvoy-moshennichestva-pri-pokupke-biletov-na-shou.html",
+          "source": "mk",
+          "author": "екатерина юдина",
+          "published_at": "2026-02-22 15:04:26",
+          "image_url": "https://static.mk.ru/upload/entities/2026/02/22/17/articles/facebookPicture/71/b1/81/43/67810efa396ea48868a542d59ab47f1c.jpg",
+          "category": "technology"
+        },
+        {
+          "title": "Правда ли, что кофе и чай снижают риск деменции",
+          "description": "Каждое утро за чашкой кофе или чая вы, возможно, делаете нечто большее, чем просто просыпаетесь. Исследование с участием 131 000 человек показало: умеренное употребление кофеина снижает риск деменции на 18–22%.",
+          "url": "https://hi-news.ru/research-development/pravda-li-chto-kofe-i-chaj-snizhayut-risk-demencii.html",
+          "source": "hi_news",
+          "author": "артем сутягин",
+          "published_at": "2026-02-22 15:00:15",
+          "image_url": "https://hi-news.ru/wp-content/uploads/2026/02/chai-ili-kofe-650x429.jpg",
+          "category": "technology"
+        },
+        {
+          "title": "Гороскоп на 23 февраля: приятные бонусы у Козерогов, освобождение от хлама у Дев",
+          "description": "Все сложится спокойно, если перестанете искать в себе недостатки",
+          "url": "https://telegraf.ua/society/2026-02-22/5933830-goroskop-na-23-fevralya-priyatnye-bonusy-u-kozerogov-izbavlenie-ot-khlama-u-dev",
+          "source": "telegraf_ua",
+          "author": "",
+          "published_at": "2026-02-22 15:00:00",
+          "image_url": "https://telegraf.com.ua/static/storage/originals/2/f4/f17c6003104ec0801123ee4a2ec67f42.jpg",
+          "category": "technology"
+        }
+      ],
+      "fetched_at": 1771824586.4703736,
       "is_stale": false,
       "api_calls": 1
     }
   },
   "metrics": {
-    "total_calls": 17,
-    "daily_calls": 17,
-    "last_reset_date": "2026-02-22"
+    "total_calls": 23,
+    "daily_calls": 6,
+    "last_reset_date": "2026-02-23",
+    "hourly_calls": 6,
+    "last_hour_reset": 1771822800
   }
 }
