@@ -478,61 +478,39 @@ class BotApp:
         if text.startswith("───"):
             return
         
-        # Убираем эмодзи статуса из текста для поиска категории
+        # === ПРЯМОЙ МАППИНГ КАТЕГОРИЙ ===
+        # Убираем статус (✅/❌) из текста кнопки
         clean_text = text
         if text.startswith("✅ "):
-            clean_text = text[2:]  # Убираем "✅ "
+            clean_text = text[2:].strip()
         elif text.startswith("❌ "):
-            clean_text = text[2:]  # Убираем "❌ "
+            clean_text = text[2:].strip()
         
-        clean_text = clean_text.strip()
-        logger.debug(f"Settings: raw='{text}', clean='{clean_text}'")
+        # Прямой маппинг: название кнопки -> ключ категории
+        button_to_category = {
+            # Основные категории
+            "🌤 Погода": "weather",
+            "💰 Криптовалюты": "crypto",
+            "💱 Курсы валют": "fiat",
+            # Категории новостей
+            "📰 Главное": "news_top",
+            "🌍 В мире": "news_world",
+            "💻 Технологии": "news_technology",
+            "💼 Бизнес": "news_business",
+            "🔬 Наука": "news_science",
+            "🏥 Здоровье": "news_health",
+            "⚽ Спорт": "news_sports",
+            "🎬 Развлечения": "news_entertainment",
+            "🏛️ Политика": "news_politics",
+            "📊 Все новости": "news_all",
+        }
         
-        # Ищем категорию по точному совпадению или частичному вхождению
-        found_cat_key = None
-        for cat_key, cat_name in CATEGORIES.items():
-            # Точное совпадение
-            if cat_name == clean_text:
-                found_cat_key = cat_key
-                break
-            # Частичное совпадение (название категории содержится в тексте кнопки)
-            if clean_text.endswith(cat_name) or cat_name in clean_text:
-                found_cat_key = cat_key
-                break
-        
-        if not found_cat_key:
-            # Дополнительная попытка: ищем по ключевым словам
-            text_lower = clean_text.lower()
-            if "погода" in text_lower:
-                found_cat_key = "weather"
-            elif "крипто" in text_lower and "валюта" not in text_lower:
-                found_cat_key = "crypto"
-            elif "валюта" in text_lower:
-                found_cat_key = "fiat"
-            elif "главное" in text_lower:
-                found_cat_key = "news_top"
-            elif "в мире" in text_lower or " мир" in text_lower:
-                found_cat_key = "news_world"
-            elif "технолог" in text_lower:
-                found_cat_key = "news_technology"
-            elif "бизнес" in text_lower:
-                found_cat_key = "news_business"
-            elif "наука" in text_lower:
-                found_cat_key = "news_science"
-            elif "здоров" in text_lower:
-                found_cat_key = "news_health"
-            elif "спорт" in text_lower:
-                found_cat_key = "news_sports"
-            elif "развлечен" in text_lower or "фильм" in text_lower or "кино" in text_lower:
-                found_cat_key = "news_entertainment"
-            elif "политик" in text_lower:
-                found_cat_key = "news_politics"
-            elif "все новости" in text_lower:
-                found_cat_key = "news_all"
+        # Ищем категорию по точному совпадению
+        found_cat_key = button_to_category.get(clean_text)
         
         if not found_cat_key:
             logger.warning(f"Category not found: '{text}' (clean: '{clean_text}')")
-            await message.answer("🤔 Неизвестная категория")
+            await message.answer("🤔 Неизвестная категория. Используйте кнопки меню.")
             return
         
         # Получаем ТЕКУЩЕЕ состояние из базы
