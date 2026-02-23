@@ -81,7 +81,7 @@ WMO_WEATHER_CODES = {
     67: {"condition": "Ледяной дождь", "emoji": "🌨️", "precipitation": "сильный ледяной дождь"},
     71: {"condition": "Снег", "emoji": "🌨️", "precipitation": "слабый снег"},
     73: {"condition": "Снег", "emoji": "❄️", "precipitation": "снег"},
-    75: {"condition": "Снег", "emoji": "❄️", "precipitation": "сильный снег"},
+    75: {"condition": "Снег", "emoji": "❄️", "precipitation": "сильный  снег"},
     77: {"condition": "Снежные зёрна", "emoji": "🌨️", "precipitation": "снежные зёрна"},
     80: {"condition": "Ливень", "emoji": "🌧️", "precipitation": "слабый ливень"},
     81: {"condition": "Ливень", "emoji": "🌧️", "precipitation": "ливень"},

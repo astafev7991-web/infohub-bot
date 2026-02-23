@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=Path(__file__).parent / ".env", override=True)
 
 from aiogram import Bot, Dispatcher, types, F
-from aiogram.filters import Command, CommandStart
+from aiogram.filters import Command, CommandStart, CommandObject
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 from aiogram.exceptions import TelegramBadRequest
 from aiogram.client.default import DefaultBotProperties
@@ -24,11 +24,11 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from config import (
     BOT_TOKEN, LOG_LEVEL, DAILY_BROADCAST_HOUR, DAILY_BROADCAST_MINUTE,
-    CATEGORIES, CITY_COORDINATES, DEFAULT_LAT, DEFAULT_LON,
+    CATEGORIES, BASE_CATEGORIES, NEWS_CATEGORIES, CITY_COORDINATES, DEFAULT_LAT, DEFAULT_LON,
     PREMIUM_PROMO_TEXT, DONATE_BUTTON_URL, DB_PATH, CACHE_PATH,
     RATE_LIMIT_SECONDS, MARKET_CACHE_PATH, NEWS_CACHE_PATH, ADMIN_ID
 )
-from database import Database
+from database import Database, BROADCAST_HOURS, REFERRAL_EXPIRE_DAYS
 from cache_manager import CacheManager
 from api_client import APIClient
 from market_digest import MarketDigest
@@ -80,25 +80,47 @@ class BotApp:
              return ReplyKeyboardMarkup(
                 keyboard=[
                     [KeyboardButton(text="📊 Мой дайджест")],
-                    [KeyboardButton(text="💰 Крипто-дайджест"), KeyboardButton(text="📰 Новости")],
+                    [KeyboardButton(text="📰 Новости")],
                     [KeyboardButton(text="⚙️ Настройки"), KeyboardButton(text="🌍 Сменить город")],
                 ],
                 resize_keyboard=True,
                 one_time_keyboard=False
             )
 
-        # Меню настроек
-        def get_settings_keyboard(user_prefs: dict):
+        # Меню настроек (с группировкой)
+        def get_settings_keyboard(user_prefs: dict, broadcast_hour: int = 9):
             buttons = []
-            row = []
-            for cat_key, cat_name in CATEGORIES.items():
-                status = "✅" if user_prefs.get(cat_key, True) else "❌"
-                row.append(KeyboardButton(text=f"{status} {cat_name}"))
-                if len(row) == 2:
-                    buttons.append(row)
-                    row = []
-            if row:
-                buttons.append(row)
+            
+            # Логируем для отладки
+            logger.debug(f"Settings keyboard prefs: {user_prefs}")
+            
+            # Основные категории
+            buttons.append([KeyboardButton(text="─── Основное ───")])
+            for cat_key, cat_name in BASE_CATEGORIES.items():
+                is_enabled = user_prefs.get(cat_key, True)
+                status = "✅" if is_enabled else "❌"
+                logger.debug(f"  {cat_key}: {is_enabled} -> {status}")
+                buttons.append([KeyboardButton(text=f"{status} {cat_name}")])
+            
+            # Категории новостей
+            buttons.append([KeyboardButton(text="─── Новости ───")])
+            news_row = []
+            for cat_key, cat_name in NEWS_CATEGORIES.items():
+                is_enabled = user_prefs.get(cat_key, True)
+                status = "✅" if is_enabled else "❌"
+                logger.debug(f"  {cat_key}: {is_enabled} -> {status}")
+                news_row.append(KeyboardButton(text=f"{status} {cat_name}"))
+                if len(news_row) == 2:
+                    buttons.append(news_row)
+                    news_row = []
+            if news_row:
+                buttons.append(news_row)
+            
+            # Время рассылки
+            buttons.append([KeyboardButton(text="─── Рассылка ───")])
+            time_str = f"⏰ Время: {broadcast_hour:02d}:00 МСК"
+            buttons.append([KeyboardButton(text=time_str)])
+            
             buttons.append([KeyboardButton(text="🔙 Назад в меню")])
             
             return ReplyKeyboardMarkup(
@@ -106,6 +128,37 @@ class BotApp:
                 resize_keyboard=True
             )
 
+        # Клавиатура выбора времени
+        def get_time_keyboard(current_hour: int = 9):
+            buttons = []
+            row = []
+            
+            # Утро (6-12)
+            for hour in [6, 7, 8, 9, 10, 11, 12]:
+                marker = "✓ " if hour == current_hour else ""
+                row.append(KeyboardButton(text=f"{marker}{hour:02d}:00"))
+                if len(row) == 4:
+                    buttons.append(row)
+                    row = []
+            
+            # Вечер (18-21)
+            for hour in [18, 19, 20, 21]:
+                marker = "✓ " if hour == current_hour else ""
+                row.append(KeyboardButton(text=f"{marker}{hour:02d}:00"))
+                if len(row) == 4:
+                    buttons.append(row)
+                    row = []
+            
+            if row:
+                buttons.append(row)
+            
+            buttons.append([KeyboardButton(text="🔙 Назад в настройки")])
+            
+            return ReplyKeyboardMarkup(
+                keyboard=buttons,
+                resize_keyboard=True
+            )
+        
         # Меню выбора города
         def get_city_keyboard():
             buttons = []
@@ -128,10 +181,12 @@ class BotApp:
         def get_news_keyboard():
             return ReplyKeyboardMarkup(
                 keyboard=[
+                    [KeyboardButton(text="💰 Крипто-дайджест")],
                     [KeyboardButton(text="📰 Главное"), KeyboardButton(text="🌍 В мире")],
                     [KeyboardButton(text="💻 Технологии"), KeyboardButton(text="💼 Бизнес")],
-                    [KeyboardButton(text="🔬 Наука"), KeyboardButton(text="🏛️ Политика")],
-                    [KeyboardButton(text="📰 Все новости")],
+                    [KeyboardButton(text="🔬 Наука"), KeyboardButton(text="🏥 Здоровье")],
+                    [KeyboardButton(text="⚽ Спорт"), KeyboardButton(text="🎬 Развлечения")],
+                    [KeyboardButton(text="🏛️ Политика"), KeyboardButton(text="📊 Все новости")],
                     [KeyboardButton(text="🔙 Назад в меню")],
                 ],
                 resize_keyboard=True
@@ -141,7 +196,7 @@ class BotApp:
         def get_crypto_keyboard():
             return ReplyKeyboardMarkup(
                 keyboard=[
-                    [KeyboardButton(text="🔄 Обновить крипто"), KeyboardButton(text="📊 Метрики API")],
+                    [KeyboardButton(text="🔄 Обновить крипто")],
                     [KeyboardButton(text="🔙 Назад в меню")],
                 ],
                 resize_keyboard=True
@@ -153,12 +208,13 @@ class BotApp:
             "city": get_city_keyboard,
             "news": get_news_keyboard,
             "crypto": get_crypto_keyboard,
+            "time": get_time_keyboard,
         }
 
     @track_usage("start")
     @handle_telegram_errors
-    async def cmd_start(self, message: types.Message):
-        """Обработчик команды /start"""
+    async def cmd_start(self, message: types.Message, command: CommandObject = None):
+        """Обработчик команды /start с поддержкой реферальных ссылок"""
         user = message.from_user
         
         try:
@@ -167,13 +223,36 @@ class BotApp:
         except Exception as e:
             logger.error(f"Ошибка добавления пользователя {user.id}: {e}")
 
+        # Обработка реферальной ссылки
+        referrer_id = None
+        if command and command.args:
+            args = command.args.strip()
+            # Формат: ref_123456
+            if args.startswith("ref_"):
+                try:
+                    referrer_id = int(args[4:])
+                    logger.info(f"Referral link detected: referrer={referrer_id}, new_user={user.id}")
+                except ValueError:
+                    logger.warning(f"Invalid referral code: {args}")
+        
+        # Если перешёл по реферальной ссылке
+        if referrer_id:
+            # Проверяем, что пользователь ещё не был рефералом
+            already_referred = await self.db.is_already_referred(user.id)
+            
+            if not already_referred and referrer_id != user.id:
+                # Добавляем реферала
+                success = await self.db.add_referral(referrer_id, user.id)
+                if success:
+                    logger.info(f"✅ Referral registered: {referrer_id} <- {user.id}")
+        
         # Сбрасываем состояние
         self._user_state[user.id] = "main"
 
         welcome_text = (
             f"👋 Привет, {html.escape(user.first_name or 'друг')}!\n\n"
             f"Я — <b>ИнфоХаб</b>, твой персональный агрегатор.\n\n"
-            f"🔹 Дайджест раз в день в {DAILY_BROADCAST_HOUR:02d}:{DAILY_BROADCAST_MINUTE:02d} MSK\n"
+            f"🔹 Дайджест раз в день\n"
             f"🔹 Настраивай категории под себя\n"
             f"🔹 0 рублей затрат!\n\n"
             f"Используй кнопки меню ниже 👇\n\n"
@@ -200,17 +279,16 @@ class BotApp:
 
 <b>Кнопки меню:</b>
 📊 <b>Мой дайджест</b> — Получить сводку сейчас
-💰 <b>Крипто-дайджест</b> — Сводка крипторынка
-📰 <b>Новости</b> — Новости на русском (NewsData.io)
+📰 <b>Новости</b> — Новости, крипто-дайджест
 ⚙️ <b>Настройки</b> — Выбрать категории
 🌍 <b>Сменить город</b> — Указать свой город
 
 <b>Категории дайджеста:</b>
-• 🌤 Погода • 💰 Криптовалюты
-• 💱 Курсы валют • 📰 Новости
+• 🌤 Погода • 💰 Криптовалюты • 💱 Курсы валют
+• 📰 Новости (10 категорий на выбор)
 
 <b>Время рассылки:</b>
-Ежедневно в 09:00 по Москве
+Настраиваемое (утро 6-12, вечер 18-21)
 """
         await message.answer(help_text, parse_mode="HTML")
 
@@ -297,9 +375,6 @@ class BotApp:
         if text == "📊 Мой дайджест":
             await self._send_digest_now(message)
         
-        elif text == "💰 Крипто-дайджест":
-            await self._show_crypto_digest(message)
-        
         elif text == "📰 Новости":
             self._user_state[user_id] = "news"
             await message.answer(
@@ -307,15 +382,28 @@ class BotApp:
                 parse_mode="HTML",
                 reply_markup=self.keyboards["news"]()
             )
-
+        
         elif text == "⚙️ Настройки":
-            self._user_state[user_id] = "settings"
-            prefs = await self.db.get_user_preferences(user_id)
-            await message.answer(
-                "⚙️ <b>Настройки категорий</b>\n\nНажмите на категорию, чтобы включить/выключить:",
-                parse_mode="HTML",
-                reply_markup=self.keyboards["settings"](prefs)
-            )
+            try:
+                self._user_state[user_id] = "settings"
+                # Убедимся, что пользователь существует в базе
+                await self.db.add_user(user_id, message.from_user.username, message.from_user.first_name)
+                prefs = await self.db.get_user_preferences(user_id)
+                broadcast_hour = await self.db.get_broadcast_hour(user_id)
+                
+                logger.info(f"Settings opened for user {user_id}: prefs={len(prefs)} cats, hour={broadcast_hour}")
+                
+                await message.answer(
+                    "⚙️ <b>Настройки категорий</b>\n\nНажмите на категорию, чтобы включить/выключить:",
+                    parse_mode="HTML",
+                    reply_markup=self.keyboards["settings"](prefs, broadcast_hour)
+                )
+            except Exception as e:
+                logger.error(f"Error opening settings for {user_id}: {e}", exc_info=True)
+                await message.answer(
+                    "❌ Ошибка открытия настроек. Попробуйте позже.",
+                    reply_markup=self.keyboards["main"]()
+                )
         
         elif text == "🌍 Сменить город":
             self._user_state[user_id] = "city"
@@ -336,6 +424,10 @@ class BotApp:
         # === НАСТРОЙКИ ===
         elif state == "settings":
             await self._handle_settings_button(message)
+        
+        # === ВЫБОР ВРЕМЕНИ ===
+        elif state == "time":
+            await self._handle_time_button(message)
         
         # === ГОРОД ===
         elif state == "city":
@@ -371,24 +463,133 @@ class BotApp:
                 reply_markup=self.keyboards["main"]()
             )
             return
+
+        # Кнопка времени рассылки
+        if text.startswith("⏰ Время:"):
+            self._user_state[user_id] = "time"
+            current_hour = await self.db.get_broadcast_hour(user_id)
+            await message.answer(
+                "⏰ Выберите время ежедневной рассылки:",
+                reply_markup=self.keyboards["time"](current_hour)
+            )
+            return
         
-        # Ищем категорию в тексте кнопки
+        # Игнорируем заголовки разделов
+        if text.startswith("───"):
+            return
+        
+        # Убираем эмодзи статуса из текста для поиска категории
+        clean_text = text
+        if text.startswith("✅ "):
+            clean_text = text[2:]  # Убираем "✅ "
+        elif text.startswith("❌ "):
+            clean_text = text[2:]  # Убираем "❌ "
+        
+        clean_text = clean_text.strip()
+        logger.debug(f"Settings: raw='{text}', clean='{clean_text}'")
+        
+        # Ищем категорию по точному совпадению или частичному вхождению
+        found_cat_key = None
         for cat_key, cat_name in CATEGORIES.items():
-            if cat_name in text or cat_key in text.lower():
-                prefs = await self.db.get_user_preferences(user_id)
-                new_state = not prefs.get(cat_key, True)
-                await self.db.toggle_preference(user_id, cat_key, new_state)
-                
-                # Обновляем клавиатуру
-                prefs = await self.db.get_user_preferences(user_id)
-                status = "включена" if new_state else "выключена"
-                await message.answer(
-                    f"✅ {cat_name}: {status}",
-                    reply_markup=self.keyboards["settings"](prefs)
-                )
-                return
+            # Точное совпадение
+            if cat_name == clean_text:
+                found_cat_key = cat_key
+                break
+            # Частичное совпадение (название категории содержится в тексте кнопки)
+            if clean_text.endswith(cat_name) or cat_name in clean_text:
+                found_cat_key = cat_key
+                break
         
-        await message.answer("🤔 Неизвестная категория")
+        if not found_cat_key:
+            # Дополнительная попытка: ищем по ключевым словам
+            text_lower = clean_text.lower()
+            if "погода" in text_lower:
+                found_cat_key = "weather"
+            elif "крипто" in text_lower and "валюта" not in text_lower:
+                found_cat_key = "crypto"
+            elif "валюта" in text_lower:
+                found_cat_key = "fiat"
+            elif "главное" in text_lower:
+                found_cat_key = "news_top"
+            elif "в мире" in text_lower or " мир" in text_lower:
+                found_cat_key = "news_world"
+            elif "технолог" in text_lower:
+                found_cat_key = "news_technology"
+            elif "бизнес" in text_lower:
+                found_cat_key = "news_business"
+            elif "наука" in text_lower:
+                found_cat_key = "news_science"
+            elif "здоров" in text_lower:
+                found_cat_key = "news_health"
+            elif "спорт" in text_lower:
+                found_cat_key = "news_sports"
+            elif "развлечен" in text_lower or "фильм" in text_lower or "кино" in text_lower:
+                found_cat_key = "news_entertainment"
+            elif "политик" in text_lower:
+                found_cat_key = "news_politics"
+            elif "все новости" in text_lower:
+                found_cat_key = "news_all"
+        
+        if not found_cat_key:
+            logger.warning(f"Category not found: '{text}' (clean: '{clean_text}')")
+            await message.answer("🤔 Неизвестная категория")
+            return
+        
+        # Получаем ТЕКУЩЕЕ состояние из базы
+        prefs = await self.db.get_user_preferences(user_id)
+        current_state = prefs.get(found_cat_key, True)
+        new_state = not current_state
+        
+        logger.info(f"Settings toggle: user={user_id}, cat={found_cat_key}, {current_state} -> {new_state}")
+        
+        # Сохраняем новое состояние
+        await self.db.toggle_preference(user_id, found_cat_key, new_state)
+        
+        # Получаем обновлённые настройки из базы
+        prefs = await self.db.get_user_preferences(user_id)
+        broadcast_hour = await self.db.get_broadcast_hour(user_id)
+        
+        cat_name = CATEGORIES[found_cat_key]
+        status_text = "включена ✅" if new_state else "выключена ❌"
+        
+        # Отправляем обновлённую клавиатуру
+        await message.answer(
+            f"⚙️ {cat_name}: {status_text}",
+            parse_mode="HTML",
+            reply_markup=self.keyboards["settings"](prefs, broadcast_hour)
+        )
+        
+    async def _handle_time_button(self, message: types.Message):
+        """Обработка выбора времени рассылки"""
+        user_id = message.from_user.id
+        text = message.text
+        
+        if text == "🔙 Назад в настройки":
+            prefs = await self.db.get_user_preferences(user_id)
+            broadcast_hour = await self.db.get_broadcast_hour(user_id)
+            await message.answer(
+                "⚙️ Настройки",
+                reply_markup=self.keyboards["settings"](prefs, broadcast_hour)
+            )
+            return
+        
+        # Парсим время из кнопки (формат: "✓09:00" или "09:00")
+        try:
+            # Убираем маркер выбора если есть
+            time_str = text.replace("✓ ", "").replace("✓", "").strip()
+            hour = int(time_str.split(":")[0])
+            
+            if hour in BROADCAST_HOURS:
+                await self.db.set_broadcast_hour(user_id, hour)
+                prefs = await self.db.get_user_preferences(user_id)
+                await message.answer(
+                    f"✅ Время рассылки установлено: {hour:02d}:00 МСК",
+                    reply_markup=self.keyboards["settings"](prefs, hour)
+                )
+            else:
+                await message.answer("❌ Недопустимое время")
+        except (ValueError, IndexError):
+            await message.answer("❌ Ошибка разбора времени")
 
     # === CITY HANDLERS ===
     async def _handle_city_button(self, message: types.Message):
@@ -435,26 +636,29 @@ class BotApp:
             )
             return
         
+        # Крипто-дайджест в разделе новостей
+        if text == "💰 Крипто-дайджест":
+            await self._show_crypto_digest(message)
+            return
+        
         if not self.news_digest:
             await message.answer("❌ Сервис новостей недоступен")
             return
         
-        # Категории NewsData.io (язык: русский)
-        category = "top"
+        # Маппинг кнопок на категории NewsData.io
+        button_to_category = {
+            "📰 Главное": "top",
+            "🌍 В мире": "world",
+            "💻 Технологии": "technology",
+            "💼 Бизнес": "business",
+            "🔬 Наука": "science",
+            "🏥 Здоровье": "health",
+            "⚽ Спорт": "sports",
+            "🎬 Развлечения": "entertainment",
+            "🏛️ Политика": "politics",
+        }
         
-        if text == "📰 Главное":
-            category = "top"
-        elif text == "🌍 В мире":
-            category = "world"
-        elif text == "💻 Технологии":
-            category = "technology"
-        elif text == "💼 Бизнес":
-            category = "business"
-        elif text == "🔬 Наука":
-            category = "science"
-        elif text == "🏛️ Политика":
-            category = "politics"
-        elif text == "📰 Все новости":
+        if text == "📊 Все новости":
             digest_text = self.news_digest.get_combined_digest(max_per_category=3)
             await message.answer(
                 digest_text,
@@ -462,7 +666,10 @@ class BotApp:
                 disable_web_page_preview=True
             )
             return
-        else:
+        
+        category = button_to_category.get(text)
+        if not category:
+            await message.answer("❌ Неизвестная категория")
             return
         
         digest_text = self.news_digest.get_news_digest(
@@ -475,22 +682,58 @@ class BotApp:
             parse_mode="HTML",
             disable_web_page_preview=True
         )
-
+        
     # === CRYPTO HANDLERS ===
     async def _show_crypto_digest(self, message: types.Message):
-        """Показать крипто-дайджест"""
+        """Показать крипто-дайджест (требуется разблокировка через реферала)"""
         user_id = message.from_user.id
-        self._user_state[user_id] = "crypto"
         
         if not self.market_digest:
             await message.answer("❌ Сервис крипто-дайджеста недоступен")
+            return
+        
+        # Проверяем разблокировку
+        crypto_unlocked = await self.db.is_crypto_unlocked(user_id)
+        
+        if not crypto_unlocked:
+            # Показываем сообщение с кнопкой для реферальной ссылки
+            await self._show_crypto_locked(message)
             return
         
         digest_text = self.market_digest.get_digest()
         await message.answer(
             digest_text,
             parse_mode="HTML",
-            reply_markup=self.keyboards["crypto"]()
+            disable_web_page_preview=True
+        )
+        
+    async def _show_crypto_locked(self, message: types.Message):
+        """Показать сообщение о заблокированном крипто-дайджесте"""
+        user_id = message.from_user.id
+        
+        # Генерируем реферальную ссылку
+        bot_username = (await self.bot.get_me()).username
+        ref_link = f"https://t.me/{bot_username}?start=ref_{user_id}"
+        
+        text = (
+            "🔒 <b>Крипто-дайджест заблокирован</b>\n\n"
+            "Пригласи <b>одного друга</b> и разблокируй эту функцию!\n\n"
+            f"🔗 Твоя реферальная ссылка:\n<code>{ref_link}</code>\n\n"
+            "⏳ Ссылка действительна 7 дней"
+        )
+        
+        # Создаём inline-кнопку для копирования ссылки
+        from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+        keyboard = InlineKeyboardMarkup(
+            inline_keyboard=[
+                [InlineKeyboardButton(text="📋 Скопировать ссылку", url=ref_link)]
+            ]
+        )
+        
+        await message.answer(
+            text,
+            parse_mode="HTML",
+            reply_markup=keyboard
         )
 
     async def _handle_crypto_button(self, message: types.Message):
@@ -521,24 +764,6 @@ class BotApp:
                 reply_markup=self.keyboards["crypto"]()
             )
         
-        elif text == "📊 Метрики API":
-            metrics = self.market_digest.get_metrics()
-            
-            text_msg = (
-                f"📊 <b>Метрики API</b>\n\n"
-                f"🔴 CoinGecko (минута): <b>{metrics['coingecko_calls_last_minute']}/30</b>\n"
-                f"🟡 Fear & Greed (минута): <b>{metrics['fng_calls_last_minute']}</b>\n\n"
-                f"📁 Записей в кэше: <b>{metrics['cache_entries']}</b>\n\n"
-            )
-            
-            for key, status in metrics.get("cache_status", {}).items():
-                emoji = "✅" if status.get("valid") else "⏰"
-                stale = " ⚠️" if status.get("is_stale") else ""
-                age = status.get("age_seconds", 0)
-                text_msg += f"{emoji} {key}: {age}s{stale}\n"
-            
-            await message.answer(text_msg, parse_mode="HTML")
-
     # === DIGEST ===
     @rate_limit(seconds=RATE_LIMIT_SECONDS)
     @track_usage("digest")
@@ -616,37 +841,70 @@ class BotApp:
                 val = rates.get(code)
                 parts.append(f"  {name}: {val} ₽" if val else f"  {name}: недоступно")
 
-        # Новости (из NewsData.io вместо RSS)
-        if prefs.get("news") and self.news_digest:
-            news_articles = self.news_digest.get_cached_articles(
-                language="ru", category="top", max_items=3
-            )
-            if news_articles:
+        # Новости (из NewsData.io по выбранным категориям)
+        if self.news_digest:
+            news_parts = []
+            
+            # Проверяем каждую категорию новостей
+            news_category_map = {
+                "news_top": ("top", "📰 Главное"),
+                "news_world": ("world", "🌍 В мире"),
+                "news_technology": ("technology", "💻 Технологии"),
+                "news_business": ("business", "💼 Бизнес"),
+                "news_science": ("science", "🔬 Наука"),
+                "news_health": ("health", "🏥 Здоровье"),
+                "news_sports": ("sports", "⚽ Спорт"),
+                "news_entertainment": ("entertainment", "🎬 Развлечения"),
+                "news_politics": ("politics", "🏛️ Политика"),
+            }
+            
+            for pref_key, (api_category, label) in news_category_map.items():
+                if prefs.get(pref_key):
+                    articles = self.news_digest.get_cached_articles(
+                        language="ru", category=api_category, max_items=2
+                    )
+                    if articles:
+                        news_parts.append(f"\n{label}:")
+                        for item in articles:
+                            raw_title = item.get("title", "Без заголовка")
+                            title = html.escape((raw_title[:50] + "...") if len(raw_title) > 50 else raw_title)
+                            link = item.get("url", "#")
+                            news_parts.append(f" • <a href='{link}'>{title}</a>")
+            
+            # Если включены все новости - показываем комбинированный дайджест
+            if prefs.get("news_all") and not news_parts:
+                combined = self.news_digest.get_combined_digest(max_per_category=2)
+                # Убираем заголовок, т.к. он уже есть в дайджесте
+                lines = combined.split("\n")
+                if lines and "Новости дня" in lines[0]:
+                    lines = lines[1:]
+                news_parts = ["\n📊 " + line for line in lines if line.strip()]
+            
+            if news_parts:
                 parts.append("\n📰 <b>Новости:</b>")
-                for item in news_articles:
-                    raw_title = item.get("title", "Без заголовка")
-                    title = html.escape((raw_title[:60] + "...") if len(raw_title) > 60 else raw_title)
-                    source = html.escape(item.get("source", "Источник"))
-                    link = item.get("url", "#")
-                    parts.append(f" • <a href='{link}'>{title}</a> <i>({source})</i>")
-            else:
+                parts.extend(news_parts)
+            elif any(prefs.get(k) for k in NEWS_CATEGORIES.keys()):
                 parts.append("\n📰 <b>Новости:</b> временно недоступно")
-        elif prefs.get("news"):
-            parts.append("\n📰 <b>Новости:</b> временно недоступно")
         
         parts.append(f"\n\n{PREMIUM_PROMO_TEXT}")
         return "\n".join(parts)
 
     # === BROADCAST ===
-    async def daily_broadcast(self):
-        """Ежедневная рассылка"""
-        logger.info("🚀 Запуск ежедневной рассылки")
+    async def hourly_broadcast(self, hour: int):
+        """
+        Рассылка для пользователей с выбранным временем.
+        
+        Args:
+            hour: Час рассылки по МСК
+        """
+        logger.info(f"🚀 Запуск рассылки для часа {hour:02d}:00")
         
         try:
+            # Обновляем кэш перед рассылкой
             await self.cache_manager.force_refresh()
             
-            users = await self.db.get_all_active_users()
-            logger.info(f"📬 Рассылка для {len(users)} пользователей")
+            users = await self.db.get_users_by_broadcast_hour(hour)
+            logger.info(f"📬 Рассылка для {len(users)} пользователей ({hour:02d}:00)")
             
             sent = 0
             failed = 0
@@ -685,7 +943,7 @@ class BotApp:
                     logger.error(f"Ошибка отправки {user['user_id']}: {e}")
                     failed += 1
 
-            logger.info(f"✅ Рассылка: {sent} доставлено, {failed} ошибок")
+            logger.info(f"✅ Рассылка {hour:02d}:00: {sent} доставлено, {failed} ошибок")
             
         except Exception as e:
             logger.error(f"Критическая ошибка рассылки: {e}", exc_info=True)
@@ -696,14 +954,17 @@ class BotApp:
         msk_tz = timezone(timedelta(hours=3), name="MSK")
         self.scheduler = AsyncIOScheduler(timezone=msk_tz)
 
-        self.scheduler.add_job(
-            self.daily_broadcast,
-            trigger="cron",
-            hour=DAILY_BROADCAST_HOUR,
-            minute=DAILY_BROADCAST_MINUTE,
-            id="daily_digest",
-            misfire_grace_time=3600
-        )
+        # Рассылка для каждого часа из BROADCAST_HOURS
+        for hour in BROADCAST_HOURS:
+            self.scheduler.add_job(
+                self.hourly_broadcast,
+                trigger="cron",
+                hour=hour,
+                minute=0,
+                id=f"daily_digest_{hour}",
+                misfire_grace_time=3600,
+                kwargs={"hour": hour}
+            )
         
         self.scheduler.add_job(
             lambda: asyncio.create_task(self.cache_manager.force_refresh()),
@@ -732,7 +993,7 @@ class BotApp:
             )
         
         self.scheduler.start()
-        logger.info(f"📅 Планировщик запущен ({DAILY_BROADCAST_HOUR:02d}:{DAILY_BROADCAST_MINUTE:02d} MSK)")
+        logger.info(f"📅 Планировщик запущен (рассылка: {BROADCAST_HOURS})")
 
     # === LIFECYCLE ===
     async def on_startup(self):

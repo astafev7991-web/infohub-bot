@@ -144,12 +144,29 @@ PREMIUM_PROMO_TEXT = "🔥 Хочешь новости чаще и без рек
 DONATE_BUTTON_URL = "https://t.me/your_donate_bot"
 
 # === CATEGORIES ===
-CATEGORIES = {
+# Основные категории
+BASE_CATEGORIES = {
     "weather": "🌤 Погода",
     "crypto": "💰 Криптовалюты",
     "fiat": "💱 Курсы валют",
-    "news": "📰 Новости"
 }
+
+# Категории новостей (из NewsData.io)
+NEWS_CATEGORIES = {
+    "news_top": "📰 Главное",
+    "news_world": "🌍 В мире",
+    "news_technology": "💻 Технологии",
+    "news_business": "💼 Бизнес",
+    "news_science": "🔬 Наука",
+    "news_health": "🏥 Здоровье",
+    "news_sports": "⚽ Спорт",
+    "news_entertainment": "🎬 Развлечения",
+    "news_politics": "🏛️ Политика",
+    "news_all": "📊 Все новости",
+}
+
+# Все категории вместе
+CATEGORIES = {**BASE_CATEGORIES, **NEWS_CATEGORIES}
 
 # === CITIES ===
 CITY_COORDINATES = {

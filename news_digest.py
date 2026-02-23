@@ -25,7 +25,7 @@ NEWSDATA_BASE = "https://newsdata.io/api/1"
 
 # Лимиты API
 HOURLY_LIMIT = 20      # Запросов в час
-DAILY_LIMIT = 200      # Запросов в день
+DAILY_LIMIT = 500      # Запросов в день
 
 # Время жизни кэша (секунды) — увеличено для экономии запросов
 CACHE_TTL = {
@@ -35,6 +35,9 @@ CACHE_TTL = {
     "headlines_ru_technology": 60 * 60,  # 1 час
     "headlines_ru_business": 60 * 60,    # 1 час
     "headlines_ru_science": 60 * 60,     # 1 час
+    "headlines_ru_health": 60 * 60,      # 1 час
+    "headlines_ru_sports": 60 * 60,      # 1 час
+    "headlines_ru_entertainment": 60 * 60,  # 1 час
     "headlines_ru_politics": 60 * 60,    # 1 час
 }
 
@@ -436,13 +439,18 @@ class NewsDigest:
             logger.warning(f"NewsDigest: Skipping refresh — only {remaining['hourly']} hourly requests left")
             return {"skipped": True, "reason": "hourly_limit"}
         
-        # Обновляем русские новости по категориям (5 запросов)
+        # Обновляем русские новости по категориям (9 запросов)
+        # Примечание: лимит 20/час, обновляем раз в час
         tasks = [
             ("ru_top", self.get_latest_news(language="ru", category="top")),
             ("ru_world", self.get_latest_news(language="ru", category="world")),
             ("ru_technology", self.get_latest_news(language="ru", category="technology")),
             ("ru_business", self.get_latest_news(language="ru", category="business")),
             ("ru_science", self.get_latest_news(language="ru", category="science")),
+            ("ru_health", self.get_latest_news(language="ru", category="health")),
+            ("ru_sports", self.get_latest_news(language="ru", category="sports")),
+            ("ru_entertainment", self.get_latest_news(language="ru", category="entertainment")),
+            ("ru_politics", self.get_latest_news(language="ru", category="politics")),
         ]
         
         for name, task in tasks:
