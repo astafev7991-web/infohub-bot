@@ -1,22 +1,84 @@
-# === СЕКРЕТЫ И КОНФИГУРАЦИЯ (НИКОГДА НЕ КОММИТЬ!) ===
+# =============================================================================
+# InfoHub Telegram Bot - .gitignore
+# Предотвращает попадание секретов и мусора в Git-репозиторий
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# СЕКРЕТЫ И КОНФИГУРАЦИЯ (НИКОГДА НЕ КОММИТЬ!)
+# -----------------------------------------------------------------------------
 .env
 .env.local
 .env.*.local
+.env.production
+.env.development
+*.env
+secrets.json
+secrets.yaml
+secrets.yml
+config.local.py
+config.local.json
 *.pem
 *.key
-secrets.json
-config.local.py
+*.crt
+*.p12
+*.pfx
+credentials.json
+service_account.json
+token.json
+access_token.txt
+api_key.txt
+private_key.pem
 
-# === БАЗЫ ДАННЫХ И КЭШ (создаются на сервере) ===
+# -----------------------------------------------------------------------------
+# БАЗЫ ДАННЫХ И КЭШ (создаются на сервере, не нужны в Git)
+# -----------------------------------------------------------------------------
 *.db
 *.sqlite
 *.sqlite3
+*.db-shm
+*.db-wal
+*.db-journal
 cache.json
 cache.json.tmp
+cache.json.lock
+*.pickle
+*.pkl
+*.dat
+data/
+db/
+database/
+migrations/
+*.sql
+dump.sql
+backup.sql
+
+# -----------------------------------------------------------------------------
+# ЛОГИ И ВРЕМЕННЫЕ ФАЙЛЫ
+# -----------------------------------------------------------------------------
 *.log
 logs/
+log/
+tmp/
+temp/
+tempfile/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.cache/
+.thumbnails/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.Spotlight-V100
+.Trashes
 
-# === PYTHON: системные файлы ===
+# -----------------------------------------------------------------------------
+# PYTHON: СИСТЕМНЫЕ ФАЙЛЫ
+# -----------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
 *$py.class
@@ -37,62 +99,257 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
 
-# === PYTHON: виртуальные окружения ===
+# -----------------------------------------------------------------------------
+# PYTHON: ВИРТУАЛЬНЫЕ ОКРУЖЕНИЯ
+# -----------------------------------------------------------------------------
 venv/
 ENV/
 env/
 .venv/
+.ENV/
+env.bak/
+venv.bak/
+.python-version
+Pipfile.lock
+.poetry/
 .pytest_cache/
 .mypy_cache/
+.hypothesis/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
 
-# === IDE И РЕДАКТОРЫ ===
+# -----------------------------------------------------------------------------
+# IDE И РЕДАКТОРЫ КОДА
+# -----------------------------------------------------------------------------
+# PyCharm
 .idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
 .vscode/
-*.swp
+*.code-workspace
+.codeintel/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.vim
+*.vimrc
+*.gvimrc
+._vimrc
+.exrc
+.gvimrc
+.netrc
 *.swo
+*.swp
+*.swn
+
+# Emacs
 *~
-.project
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Atom
+.atom/
+
+# Eclipse
 .pydevproject
 .settings/
+.project
+.classpath
+.cproject
 
-# === ОС-СПЕЦИФИЧНЫЕ ФАЙЛЫ ===
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# IntelliJ
+out/
+*.ipr
+*.iws
+
+# -----------------------------------------------------------------------------
+# ОС-СПЕЦИФИЧНЫЕ ФАЙЛЫ
+# -----------------------------------------------------------------------------
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+$RECYCLE.BIN/
+@eaDir/
+System Volume Information/
 
-# === ТЕСТЫ И ПОКРЫТИЕ ===
+# Linux
+*~
+.fuse_hidden*
+.Trash-*
+.nfs*
+
+# -----------------------------------------------------------------------------
+# DOCKER И КОНТЕЙНЕРЫ
+# -----------------------------------------------------------------------------
+.docker/
+docker-compose.override.yml
+docker-compose.local.yml
+.dockerignore
+*.dockerfile
+.containerenv
+.dockerenv
+
+# -----------------------------------------------------------------------------
+# GIT И CI/CD
+# -----------------------------------------------------------------------------
+.git/
+.gitignore
+.gitattributes
+.gitmodules
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+.jenkins/
+.drone.yml
+appveyor.yml
+bitbucket-pipelines.yml
+azure-pipelines.yml
+
+# -----------------------------------------------------------------------------
+# ТЕСТЫ И ПОКРЫТИЕ КОДА
+# -----------------------------------------------------------------------------
 htmlcov/
 .coverage
 .tox/
 .nox/
+.coverage.*
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+tests/fixtures/
+tests/data/
+test_data/
+fixtures/
 
-# === ДОКУМЕНТАЦИЯ (опционально) ===
+# -----------------------------------------------------------------------------
+# ДОКУМЕНТАЦИЯ (GENERATED)
+# -----------------------------------------------------------------------------
 docs/_build/
+site/
+mkdocs.yml
+*.md~
+*.rst~
 
-# === DOCKER ===
-.docker/
-docker-compose.override.yml
-
-# === CI/CD (если будете добавлять) ===
-.github/
-.gitlab-ci.yml
-.travis.yml
-
-# === TEMP И ЗАГРУЗКИ ===
-tmp/
-temp/
-*.tmp
-*.temp
+# -----------------------------------------------------------------------------
+# ЗАГРУЗКИ И МЕДИА (если бот работает с файлами)
+# -----------------------------------------------------------------------------
 uploads/
 downloads/
+media/
+files/
+attachments/
+static/
+assets/
 
-# === SPECIFIC TO INFOHUB ===
+# -----------------------------------------------------------------------------
+# SPECIFIC TO INFOHUB PROJECT
+# -----------------------------------------------------------------------------
 # Файлы, которые генерируются при работе бота
+users.db
 users.db-shm
 users.db-wal
-cache.json.lock
+cache.json
+cache.json.tmp
+bot.log
+error.log
+debug.log
+*.pid
+.pid
+*.lock
+.lock
 
-def _is_cache_valid(self, cache_ Dict) -> bool:  # должно быть cache_data
-parts.append(f"\n😄 <b>Факт дня</b>:\n{i['setup']}\n<i>{joke['punchline']}</i>")
+# Локальные тестовые файлы
+test_*.py
+*_test.py
+conftest.py
+pytest.ini
+setup.cfg
+tox.ini
+
+# Временные файлы отладки
+debug/
+debug.log
+trace.log
+profile/
+profiling/
+
+# -----------------------------------------------------------------------------
+# ЧТО МОЖНО КОММИТИТЬ (для справки)
+# -----------------------------------------------------------------------------
+# ✅ .env.example (шаблон без секретов)
+# ✅ requirements.txt (зависимости)
+# ✅ Dockerfile (инструкция сборки)
+# ✅ .gitignore (этот файл)
+# ✅ README.md (документация)
+# ✅ Все .py файлы исходного кода
+# ✅ LICENSE (лицензия проекта)
+
+# =============================================================================
+# ПРОВЕРКА .GITIGNORE
+# =============================================================================
+# Чтобы проверить, что .gitignore работает правильно:
+# 
+# 1. Создайте тестовые файлы:
+#    touch .env users.db cache.json __pycache__/test.pyc
+# 
+# 2. Проверьте статус Git:
+#    git status
+# 
+# 3. Убедитесь, что файлы НЕ отображаются в списке
+# 
+# 4. Если файл всё ещё виден — удалите его из кэша Git:
+#    git rm --cached <filename>
+#    git commit -m "chore: remove sensitive file from tracking"
