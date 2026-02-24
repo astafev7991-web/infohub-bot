@@ -311,6 +311,10 @@ debug.log
 *.lock
 .lock
 
+# Кэш-файлы рынка и новостей (генерируются автоматически, не нужны в репо)
+market_cache.json
+news_cache.json
+
 # Локальные тестовые файлы
 test_*.py
 *_test.py
@@ -341,15 +345,15 @@ profiling/
 # ПРОВЕРКА .GITIGNORE
 # =============================================================================
 # Чтобы проверить, что .gitignore работает правильно:
-# 
+#
 # 1. Создайте тестовые файлы:
 #    touch .env users.db cache.json __pycache__/test.pyc
-# 
+#
 # 2. Проверьте статус Git:
 #    git status
-# 
+#
 # 3. Убедитесь, что файлы НЕ отображаются в списке
-# 
+#
 # 4. Если файл всё ещё виден — удалите его из кэша Git:
 #    git rm --cached <filename>
 #    git commit -m "chore: remove sensitive file from tracking"
