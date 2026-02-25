@@ -169,10 +169,10 @@ class Database:
         
         # Добавляем ВСЕ категории из CATEGORIES всем пользователям
         for cat_key in CATEGORIES.keys():
-            await db.execute(f"""
+            await db.execute("""
                 INSERT OR IGNORE INTO preferences (user_id, category, is_enabled)
-                SELECT user_id, '{cat_key}', 1 FROM users
-            """)
+                SELECT user_id, ?, 1 FROM users
+            """, (cat_key,))
             
         logger.debug("Schema v3 created - ensured all categories exist")
 

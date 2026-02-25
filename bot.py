@@ -24,7 +24,8 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from config import (
     BOT_TOKEN, LOG_LEVEL, DAILY_BROADCAST_HOUR, DAILY_BROADCAST_MINUTE,
-    CATEGORIES, BASE_CATEGORIES, NEWS_CATEGORIES, CITY_COORDINATES, DEFAULT_LAT, DEFAULT_LON,
+    CATEGORIES, BASE_CATEGORIES, NEWS_CATEGORIES as NEWS_CATS_CONFIG,
+    CITY_COORDINATES, DEFAULT_LAT, DEFAULT_LON,
     PREMIUM_PROMO_TEXT, DONATE_BUTTON_URL, DB_PATH, CACHE_PATH,
     RATE_LIMIT_SECONDS, MARKET_CACHE_PATH, NEWS_CACHE_PATH, ADMIN_ID
 )
@@ -32,7 +33,7 @@ from database import Database, BROADCAST_HOURS, REFERRAL_EXPIRE_DAYS
 from cache_manager import CacheManager
 from api_client import APIClient
 from market_digest import MarketDigest
-from news_digest import NewsDigest, NEWS_CATEGORIES
+from news_digest import NewsDigest
 from utils.decorators import (
     rate_limit, handle_telegram_errors, track_usage, get_usage_stats
 )
@@ -105,7 +106,7 @@ class BotApp:
             # Категории новостей
             buttons.append([KeyboardButton(text="─── Новости ───")])
             news_row = []
-            for cat_key, cat_name in NEWS_CATEGORIES.items():
+            for cat_key, cat_name in NEWS_CATS_CONFIG.items():
                 is_enabled = user_prefs.get(cat_key, True)
                 status = "✅" if is_enabled else "❌"
                 logger.debug(f"  {cat_key}: {is_enabled} -> {status}")
@@ -861,7 +862,7 @@ class BotApp:
             if news_parts:
                 parts.append("\n📰 <b>Новости:</b>")
                 parts.extend(news_parts)
-            elif any(prefs.get(k) for k in NEWS_CATEGORIES.keys()):
+            elif any(prefs.get(k) for k in NEWS_CATS_CONFIG.keys()):
                 parts.append("\n📰 <b>Новости:</b> временно недоступно")
         
         parts.append(f"\n\n{PREMIUM_PROMO_TEXT}")

@@ -25,20 +25,20 @@ NEWSDATA_BASE = "https://newsdata.io/api/1"
 
 # Лимиты API
 HOURLY_LIMIT = 20      # Запросов в час
-DAILY_LIMIT = 500      # Запросов в день
+DAILY_LIMIT = 200      # Запросов в день
 
-# Время жизни кэша (секунды) — увеличено для экономии запросов
+# Время жизни кэша (секунды) — увеличено до 3 часов
 CACHE_TTL = {
-    "headlines_ru": 60 * 60,           # 1 час
-    "headlines_ru_top": 60 * 60,       # 1 час
-    "headlines_ru_world": 60 * 60,     # 1 час
-    "headlines_ru_technology": 60 * 60,  # 1 час
-    "headlines_ru_business": 60 * 60,    # 1 час
-    "headlines_ru_science": 60 * 60,     # 1 час
-    "headlines_ru_health": 60 * 60,      # 1 час
-    "headlines_ru_sports": 60 * 60,      # 1 час
-    "headlines_ru_entertainment": 60 * 60,  # 1 час
-    "headlines_ru_politics": 60 * 60,    # 1 час
+    "headlines_ru": 3 * 60 * 60,           # 3 часа
+    "headlines_ru_top": 3 * 60 * 60,       # 3 часа
+    "headlines_ru_world": 3 * 60 * 60,     # 3 часа
+    "headlines_ru_technology": 3 * 60 * 60,  # 3 часа
+    "headlines_ru_business": 3 * 60 * 60,    # 3 часа
+    "headlines_ru_science": 3 * 60 * 60,     # 3 часа
+    "headlines_ru_health": 3 * 60 * 60,      # 3 часа
+    "headlines_ru_sports": 3 * 60 * 60,      # 3 часа
+    "headlines_ru_entertainment": 3 * 60 * 60,  # 3 часа
+    "headlines_ru_politics": 3 * 60 * 60,    # 3 часа
 }
 
 REQUEST_TIMEOUT = aiohttp.ClientTimeout(total=15)
@@ -55,6 +55,12 @@ NEWS_CATEGORIES = {
     "politics": "🏛️ Политика",
     "top": "📰 Главное",
 }
+
+# Категории, которые часто не возвращают данные на русском
+PROBLEMATIC_CATEGORIES = {"business", "entertainment"}
+
+# Категории по умолчанию для fallback
+DEFAULT_CATEGORIES = {"top", "world", "technology", "science"}
 
 # Языки
 NEWS_LANGUAGES = {
@@ -235,7 +241,7 @@ class NewsDigest:
             return False
         
         entry = self._cache[key]
-        ttl = CACHE_TTL.get(key, 60 * 60)
+        ttl = CACHE_TTL.get(key, 3 * 60 * 60)  # 3 часа по умолчанию
         age = time.time() - entry.fetched_at
         
         return age < ttl
@@ -344,6 +350,7 @@ class NewsDigest:
             return entry.data
         
         async with self._lock:
+            # Двойная проверка после получения блокировки
             if self._is_cache_valid(cache_key):
                 return self._get_cached(cache_key).data
             
@@ -363,7 +370,17 @@ class NewsDigest:
                 self._set_cached(cache_key, articles, is_stale=False)
                 return articles
             
-            # Fallback: возвращаем устаревший кэш
+            # Для проблемных категорий возвращаем fallback данные
+            if category in PROBLEMATIC_CATEGORIES:
+                logger.info(f"NewsDigest: No data for problematic category {category}, trying fallback")
+                # Возвращаем данные из top или world как fallback
+                fallback_key = "headlines_ru_top"
+                fallback_entry = self._cache.get(fallback_key)
+                if fallback_entry and fallback_entry.data:
+                    logger.info(f"NewsDigest: Using {fallback_key} as fallback for {category}")
+                    return fallback_entry.data
+            
+            # Возвращаем устаревший кэш если есть
             entry = self._get_cached(cache_key)
             if entry and entry.data:
                 logger.warning(f"NewsDigest: Returning stale {cache_key}")
@@ -426,7 +443,7 @@ class NewsDigest:
     
     async def refresh_all(self) -> Dict[str, bool]:
         """
-        Принуденное обновление основных лент.
+        Принудительное обновление основных лент.
         Вызывается по расписанию.
         """
         logger.info("NewsDigest: Starting refresh")
@@ -439,24 +456,40 @@ class NewsDigest:
             logger.warning(f"NewsDigest: Skipping refresh — only {remaining['hourly']} hourly requests left")
             return {"skipped": True, "reason": "hourly_limit"}
         
-        # Обновляем русские новости по категориям (9 запросов)
-        # Примечание: лимит 20/час, обновляем раз в час
-        tasks = [
-            ("ru_top", self.get_latest_news(language="ru", category="top")),
-            ("ru_world", self.get_latest_news(language="ru", category="world")),
-            ("ru_technology", self.get_latest_news(language="ru", category="technology")),
-            ("ru_business", self.get_latest_news(language="ru", category="business")),
-            ("ru_science", self.get_latest_news(language="ru", category="science")),
-            ("ru_health", self.get_latest_news(language="ru", category="health")),
-            ("ru_sports", self.get_latest_news(language="ru", category="sports")),
-            ("ru_entertainment", self.get_latest_news(language="ru", category="entertainment")),
-            ("ru_politics", self.get_latest_news(language="ru", category="politics")),
+        # Обновляем только основные категории с приоритетом
+        priority_categories = [
+            ("top", "ru_top"),
+            ("world", "ru_world"),
+            ("technology", "ru_technology"),
+            ("science", "ru_science"),
         ]
         
+        tasks = []
+        for api_category, result_key in priority_categories:
+            task = self.get_latest_news(language="ru", category=api_category)
+            tasks.append((result_key, task))
+        
+        # Если остались запросы, обновляем остальные
+        if remaining['hourly'] > 8:
+            secondary_categories = [
+                ("health", "ru_health"),
+                ("sports", "ru_sports"),
+                ("politics", "ru_politics"),
+                # Проблемные категории оставляем на потом
+                # ("business", "ru_business"),
+                # ("entertainment", "ru_entertainment"),
+            ]
+            for api_category, result_key in secondary_categories:
+                task = self.get_latest_news(language="ru", category=api_category)
+                tasks.append((result_key, task))
+        
+        # Выполняем задачи
         for name, task in tasks:
             try:
                 result = await task
                 results[name] = result is not None
+                if not result:
+                    logger.warning(f"NewsDigest: Failed to refresh {name}")
             except Exception as e:
                 logger.error(f"NewsDigest: Error refreshing {name}: {e}")
                 results[name] = False
@@ -489,12 +522,26 @@ class NewsDigest:
         
         entry = self._cache.get(cache_key)
         
+        # Для проблемных категорий показываем fallback
+        if (not entry or not entry.data) and category in PROBLEMATIC_CATEGORIES:
+            fallback_key = "headlines_ru_top"
+            entry = self._cache.get(fallback_key)
+            if entry and entry.data:
+                logger.info(f"NewsDigest: Using {fallback_key} as fallback for {category}")
+                # Меняем название категории в заголовке
+                return self._format_digest(entry, category, f"Главное (вместо {category})")
+        
         if not entry or not entry.data:
-            logger.warning(f"NewsDigest: No cached data for {cache_key}, available keys: {list(self._cache.keys())}")
+            available = [k for k in self._cache.keys() if k.startswith(f"headlines_{language}")]
+            logger.warning(f"NewsDigest: No cached data for {cache_key}, available keys: {available}")
             return "📰 <b>Новости</b>\n\n❌ Данные временно недоступны"
         
-        lang_name = NEWS_LANGUAGES.get(language, language.upper())
-        category_name = NEWS_CATEGORIES.get(category, category)
+        return self._format_digest(entry, category)
+    
+    def _format_digest(self, entry: CacheEntry, category: str, custom_name: str = None) -> str:
+        """Форматирование дайджеста"""
+        lang_name = NEWS_LANGUAGES.get("ru", "Русский")
+        category_name = custom_name or NEWS_CATEGORIES.get(category, category)
         
         lines = [f"📰 <b>Новости</b> • {lang_name} • {category_name}"]
         
@@ -503,7 +550,7 @@ class NewsDigest:
         
         lines.append("")
         
-        for i, article in enumerate(entry.data[:max_items], 1):
+        for i, article in enumerate(entry.data[:5], 1):
             title = article.get("title", "")
             source = article.get("source", "Источник")
             url = article.get("url", "#")
@@ -538,7 +585,7 @@ class NewsDigest:
         
         has_any = False
         
-        # Главные новости
+        # Главные новости (обязательно)
         top_entry = self._cache.get("headlines_ru_top")
         if not top_entry or not top_entry.data:
             top_entry = self._cache.get("headlines_ru")
@@ -580,12 +627,12 @@ class NewsDigest:
                 lines.append(f" • <a href=\"{url}\">{title}</a>")
             lines.append("")
         
-        # Бизнес
-        biz_entry = self._cache.get("headlines_ru_business")
-        if biz_entry and biz_entry.data:
+        # Наука
+        science_entry = self._cache.get("headlines_ru_science")
+        if science_entry and science_entry.data:
             has_any = True
-            lines.append("💼 <b>Бизнес:</b>")
-            for article in biz_entry.data[:max_per_category]:
+            lines.append("🔬 <b>Наука:</b>")
+            for article in science_entry.data[:max_per_category]:
                 title = article.get("title", "")[:80]
                 url = article.get("url", "#")
                 import html as html_module
@@ -612,6 +659,16 @@ class NewsDigest:
         """Получение метрик использования API"""
         remaining = self._metrics.get_remaining()
         
+        cache_status = {}
+        for key, entry in self._cache.items():
+            cache_status[key] = {
+                "valid": self._is_cache_valid(key),
+                "age_seconds": int(time.time() - entry.fetched_at) if entry else None,
+                "age_hours": round((time.time() - entry.fetched_at) / 3600, 1) if entry else None,
+                "is_stale": entry.is_stale if entry else None,
+                "articles_count": len(entry.data) if entry and entry.data else 0
+            }
+        
         return {
             "total_calls": self._metrics.total_calls,
             "hourly_calls": self._metrics.hourly_calls,
@@ -621,13 +678,5 @@ class NewsDigest:
             "daily_limit": DAILY_LIMIT,
             "daily_remaining": remaining["daily"],
             "cache_entries": len(self._cache),
-            "cache_status": {
-                key: {
-                    "valid": self._is_cache_valid(key),
-                    "age_seconds": int(time.time() - entry.fetched_at) if entry else None,
-                    "is_stale": entry.is_stale if entry else None,
-                    "articles_count": len(entry.data) if entry and entry.data else 0
-                }
-                for key, entry in self._cache.items()
-            }
+            "cache_status": cache_status
         }
