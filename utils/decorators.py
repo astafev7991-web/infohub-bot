@@ -1,62 +1,84 @@
 """
-Декораторы и утилиты для бота
+Декораторы, миддлвары и утилиты для бота
 """
 import asyncio
 import logging
-from functools import wraps
-from collections import defaultdict
 import time
-from typing import Callable, Any
+from collections import defaultdict
+from functools import wraps
+from typing import Any, Callable
 
+from aiogram import BaseMiddleware
 from aiogram.exceptions import TelegramBadRequest
+from aiogram.types import Message, TelegramObject
 
 logger = logging.getLogger(__name__)
 
-# === RATE LIMITING ===
-_user_last_request: defaultdict[int, float] = defaultdict(float)
-RATE_LIMIT_SECONDS = 2
+
+# === RATE LIMITING MIDDLEWARE ===
+
+class RateLimitMiddleware(BaseMiddleware):
+    """
+    Миддлвар для ограничения частоты запросов от пользователя.
+    Реализован на aiogram BaseMiddleware — работает для всех сообщений.
+    """
+
+    def __init__(self, rate_limit_seconds: int = 2) -> None:
+        """
+        Args:
+            rate_limit_seconds: Минимальный интервал между запросами в секундах
+        """
+        super().__init__()
+        self.rate_limit_seconds = rate_limit_seconds
+        self._user_last_request: defaultdict[int, float] = defaultdict(float)
+
+    async def __call__(
+        self,
+        handler: Callable,
+        event: TelegramObject,
+        data: dict,
+    ) -> Any:
+        # Извлекаем user_id из сообщения
+        message = data.get("event_update", None)
+        user_id: int | None = None
+
+        if isinstance(event, Message):
+            user_id = event.from_user.id if event.from_user else None
+        elif hasattr(event, "from_user") and event.from_user:
+            user_id = event.from_user.id
+
+        if user_id is None:
+            return await handler(event, data)
+
+        now = time.monotonic()
+        last = self._user_last_request[user_id]
+        elapsed = now - last
+
+        if elapsed < self.rate_limit_seconds:
+            wait_time = int(self.rate_limit_seconds - elapsed) + 1
+            logger.debug(f"Rate limit hit for user {user_id}, wait {wait_time}s")
+            if isinstance(event, Message):
+                try:
+                    await event.answer(f"⏳ Подождите {wait_time} сек.")
+                except Exception:
+                    pass
+            return None
+
+        self._user_last_request[user_id] = now
+        return await handler(event, data)
 
 
-def rate_limit(seconds: int = RATE_LIMIT_SECONDS) -> Callable:
-    """
-    Декоратор для ограничения частоты запросов от пользователя.
-    
-    Args:
-        seconds: Минимальный интервал между запросами в секундах
-    """
+# === LEGACY DECORATOR (kept for backward compat) ===
+# Устаревший декоратор оставлен для совместимости
+# Следует использовать RateLimitMiddleware вместо него
+def rate_limit(seconds: int = 2) -> Callable:
+    """Deprecated: Используйте RateLimitMiddleware."""
     def decorator(func: Callable) -> Callable:
         @wraps(func)
         async def wrapper(event, *args, **kwargs) -> Any:
-            user_id = _get_user_id(event)
-            if user_id is None:
-                return await func(event, *args, **kwargs)
-            
-            now = time.time()
-            last_request = _user_last_request[user_id]
-            
-            if now - last_request < seconds:
-                wait_time = int(seconds - (now - last_request)) + 1
-                if hasattr(event, 'answer'):
-                    try:
-                        await event.answer(f"⏳ Подождите {wait_time} сек.", show_alert=True)
-                    except Exception:
-                        pass
-                logger.debug(f"Rate limit hit for user {user_id}")
-                return None
-            
-            _user_last_request[user_id] = now
             return await func(event, *args, **kwargs)
         return wrapper
     return decorator
-
-
-def _get_user_id(event: Any) -> int | None:
-    """Извлекает user_id из события"""
-    if hasattr(event, 'from_user') and event.from_user:
-        return event.from_user.id
-    if hasattr(event, 'message') and hasattr(event.message, 'from_user'):
-        return event.message.from_user.id
-    return None
 
 
 # === ERROR HANDLING ===
@@ -72,7 +94,6 @@ def handle_telegram_errors(func: Callable) -> Callable:
         except TelegramBadRequest as e:
             error_msg = str(e).lower()
             if "message is not modified" in error_msg:
-                # Не логируем, это нормальная ситуация
                 pass
             elif "message to delete not found" in error_msg:
                 logger.debug(f"Message already deleted in {func.__name__}")
@@ -111,7 +132,7 @@ usage_stats: defaultdict[str, int] = defaultdict(int)
 def track_usage(action: str) -> Callable:
     """
     Декоратор для отслеживания использования команд.
-    
+
     Args:
         action: Название действия для статистики
     """

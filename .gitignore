@@ -1,355 +1,45 @@
-# =============================================================================
-# InfoHub Telegram Bot - .gitignore
-# Предотвращает попадание секретов и мусора в Git-репозиторий
-# =============================================================================
-
-# -----------------------------------------------------------------------------
-# СЕКРЕТЫ И КОНФИГУРАЦИЯ (НИКОГДА НЕ КОММИТЬ!)
-# -----------------------------------------------------------------------------
+# === Секретные файлы ===
 .env
 .env.local
 .env.*.local
-.env.production
-.env.development
-*.env
-secrets.json
-secrets.yaml
-secrets.yml
-config.local.py
-config.local.json
-*.pem
-*.key
-*.crt
-*.p12
-*.pfx
-credentials.json
-service_account.json
-token.json
-access_token.txt
-api_key.txt
-private_key.pem
 
-# -----------------------------------------------------------------------------
-# БАЗЫ ДАННЫХ И КЭШ (создаются на сервере, не нужны в Git)
-# -----------------------------------------------------------------------------
+# === База данных ===
 *.db
 *.sqlite
 *.sqlite3
-*.db-shm
-*.db-wal
-*.db-journal
+
+# === Кэш ===
+*_cache.json
 cache.json
-cache.json.tmp
-cache.json.lock
-*.pickle
-*.pkl
-*.dat
-data/
-db/
-database/
-migrations/
-*.sql
-dump.sql
-backup.sql
 
-# -----------------------------------------------------------------------------
-# ЛОГИ И ВРЕМЕННЫЕ ФАЙЛЫ
-# -----------------------------------------------------------------------------
-*.log
-logs/
-log/
-tmp/
-temp/
-tempfile/
-*.tmp
-*.temp
-*.swp
-*.swo
-*~
-.cache/
-.thumbnails/
-.DS_Store
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-.Spotlight-V100
-.Trashes
-
-# -----------------------------------------------------------------------------
-# PYTHON: СИСТЕМНЫЕ ФАЙЛЫ
-# -----------------------------------------------------------------------------
+# === Python ===
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
+*.pyo
+*.pyd
 .Python
 build/
-develop-eggs/
 dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
 *.egg-info/
-.installed.cfg
+.eggs/
 *.egg
-MANIFEST
-pip-log.txt
-pip-delete-this-directory.txt
 
-# -----------------------------------------------------------------------------
-# PYTHON: ВИРТУАЛЬНЫЕ ОКРУЖЕНИЯ
-# -----------------------------------------------------------------------------
+# === Виртуальные окружения ===
 venv/
-ENV/
-env/
 .venv/
-.ENV/
-env.bak/
-venv.bak/
-.python-version
-Pipfile.lock
-.poetry/
-.pytest_cache/
-.mypy_cache/
-.hypothesis/
-.coverage
-htmlcov/
-.tox/
-.nox/
-.coverage.*
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
+env/
+ENV/
 
-# -----------------------------------------------------------------------------
-# IDE И РЕДАКТОРЫ КОДА
-# -----------------------------------------------------------------------------
-# PyCharm
+# === IDE ===
 .idea/
-*.iml
-*.ipr
-*.iws
-
-# VS Code
 .vscode/
-*.code-workspace
-.codeintel/
-
-# Sublime Text
-*.sublime-project
-*.sublime-workspace
-
-# Vim
-*.vim
-*.vimrc
-*.gvimrc
-._vimrc
-.exrc
-.gvimrc
-.netrc
-*.swo
 *.swp
-*.swn
+*.swo
 
-# Emacs
-*~
-\#*\#
-/.emacs.desktop
-/.emacs.desktop.lock
-*.elc
-auto-save-list
-tramp
-.\#*
+# === Логи ===
+*.log
+logs/
 
-# Atom
-.atom/
-
-# Eclipse
-.pydevproject
-.settings/
-.project
-.classpath
-.cproject
-
-# NetBeans
-nbproject/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/
-
-# IntelliJ
-out/
-*.ipr
-*.iws
-
-# -----------------------------------------------------------------------------
-# ОС-СПЕЦИФИЧНЫЕ ФАЙЛЫ
-# -----------------------------------------------------------------------------
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
-._*
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-@eaDir/
-System Volume Information/
-
-# Linux
-*~
-.fuse_hidden*
-.Trash-*
-.nfs*
-
-# -----------------------------------------------------------------------------
-# DOCKER И КОНТЕЙНЕРЫ
-# -----------------------------------------------------------------------------
-.docker/
-docker-compose.override.yml
-docker-compose.local.yml
+# === Docker ===
 .dockerignore
-*.dockerfile
-.containerenv
-.dockerenv
-
-# -----------------------------------------------------------------------------
-# GIT И CI/CD
-# -----------------------------------------------------------------------------
-.git/
-.gitignore
-.gitattributes
-.gitmodules
-.github/
-.gitlab-ci.yml
-.travis.yml
-.circleci/
-.jenkins/
-.drone.yml
-appveyor.yml
-bitbucket-pipelines.yml
-azure-pipelines.yml
-
-# -----------------------------------------------------------------------------
-# ТЕСТЫ И ПОКРЫТИЕ КОДА
-# -----------------------------------------------------------------------------
-htmlcov/
-.coverage
-.tox/
-.nox/
-.coverage.*
-.pytest_cache/
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-tests/fixtures/
-tests/data/
-test_data/
-fixtures/
-
-# -----------------------------------------------------------------------------
-# ДОКУМЕНТАЦИЯ (GENERATED)
-# -----------------------------------------------------------------------------
-docs/_build/
-site/
-mkdocs.yml
-*.md~
-*.rst~
-
-# -----------------------------------------------------------------------------
-# ЗАГРУЗКИ И МЕДИА (если бот работает с файлами)
-# -----------------------------------------------------------------------------
-uploads/
-downloads/
-media/
-files/
-attachments/
-static/
-assets/
-
-# -----------------------------------------------------------------------------
-# SPECIFIC TO INFOHUB PROJECT
-# -----------------------------------------------------------------------------
-# Файлы, которые генерируются при работе бота
-users.db
-users.db-shm
-users.db-wal
-cache.json
-cache.json.tmp
-bot.log
-error.log
-debug.log
-*.pid
-.pid
-*.lock
-.lock
-
-# Локальные тестовые файлы
-test_*.py
-*_test.py
-conftest.py
-pytest.ini
-setup.cfg
-tox.ini
-
-# Временные файлы отладки
-debug/
-debug.log
-trace.log
-profile/
-profiling/
-
-# -----------------------------------------------------------------------------
-# ЧТО МОЖНО КОММИТИТЬ (для справки)
-# -----------------------------------------------------------------------------
-# ✅ .env.example (шаблон без секретов)
-# ✅ requirements.txt (зависимости)
-# ✅ Dockerfile (инструкция сборки)
-# ✅ .gitignore (этот файл)
-# ✅ README.md (документация)
-# ✅ Все .py файлы исходного кода
-# ✅ LICENSE (лицензия проекта)
-
-# =============================================================================
-# ПРОВЕРКА .GITIGNORE
-# =============================================================================
-# Чтобы проверить, что .gitignore работает правильно:
-# 
-# 1. Создайте тестовые файлы:
-#    touch .env users.db cache.json __pycache__/test.pyc
-# 
-# 2. Проверьте статус Git:
-#    git status
-# 
-# 3. Убедитесь, что файлы НЕ отображаются в списке
-# 
-# 4. Если файл всё ещё виден — удалите его из кэша Git:
-#    git rm --cached <filename>
-#    git commit -m "chore: remove sensitive file from tracking"
