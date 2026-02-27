@@ -751,17 +751,17 @@ class BotApp:
                 id=f"daily_digest_{hour}", misfire_grace_time=3600, kwargs={"hour": hour}
             )
         self.scheduler.add_job(
-            lambda: asyncio.create_task(self.cache_manager.force_refresh()),
+            lambda: asyncio.run_coroutine_threadsafe(self.cache_manager.force_refresh(), asyncio.get_event_loop()),
             trigger="interval", minutes=30, id="cache_refresh", misfire_grace_time=300
         )
         if self.market_digest:
             self.scheduler.add_job(
-                lambda: asyncio.create_task(self.market_digest.refresh_all()),
+                lambda: asyncio.run_coroutine_threadsafe(self.market_digest.refresh_all(), asyncio.get_event_loop()),
                 trigger="interval", minutes=5, id="market_digest_refresh", misfire_grace_time=120
             )
         if self.news_digest:
             self.scheduler.add_job(
-                lambda: asyncio.create_task(self.news_digest.refresh_all()),
+                lambda: asyncio.run_coroutine_threadsafe(self.news_digest.refresh_all(), asyncio.get_event_loop()),
                 trigger="interval", hours=1, id="news_digest_refresh", misfire_grace_time=600
             )
         self.scheduler.start()
@@ -819,7 +819,7 @@ class BotApp:
             await self.api_client.close()
         if self.db:
             await self.db.close()
-        if self.bot and self.bot.session and not self.bot.session.closed:
+        if self.bot and self.bot.session:
             await self.bot.session.close()
         logger.info("✅ Бот остановлен")
 
@@ -837,9 +837,9 @@ class BotApp:
         self.register_handlers()
         self.dp.startup.register(self.on_startup)
         self.dp.shutdown.register(self.on_shutdown)
-        logger.info("🔄 Запуск polling...")
+        logger.info(f'✅ Health-check запущен на 0.0.0.0:{port}')         logger.info("🔄 Запуск polling...")
         try:
-            port = int(os.environ.get('PORT', 10000))         from aiohttp import web as _web         async def _health(request):             return _web.Response(text='OK')         _app = _web.Application()         _app.router.add_get('/', _health)         _app.router.add_get('/health', _health)         runner = _web.AppRunner(_app)         await runner.setup()         site = _web.TCPSite(runner, '0.0.0.0', port)         await site.start()         logger.info(f'✅ Health-check сервер запущен на 0.0.0.0:{port}')         await self.dp.start_polling(
+            port = int(os.environ.get('PORT', 10000))         from aiohttp import web as _web         async def _health(request):             return _web.Response(text='OK')         _app = _web.Application()         _app.router.add_get('/', _health)         _app.router.add_get('/health', _health)         runner = _web.AppRunner(_app)         await runner.setup()         site = _web.TCPSite(runner, '0.0.0.0', port)         await site.start()          await self.dp.start_polling(
                 self.bot,
                 allowed_updates=self.dp.resolve_used_update_types()
             )
@@ -850,7 +850,7 @@ class BotApp:
             logger.critical(traceback.format_exc())
             raise
         finally:
-            if self.bot and self.bot.session and not self.bot.session.closed:
+            if self.bot and self.bot.session:
                 await self.bot.session.close()
             logger.info("🏁 Скрипт завершён")
 
