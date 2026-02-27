@@ -1,4 +1,4 @@
-""import asyncio"
+"""
 Основной файл Telegram-бота «ИнфоХаб»
 Рефакторинг: класс BotApp, rate limiting, обработка ошибок, новые команды
 Reply-клавиатуры вместо inline
