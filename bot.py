@@ -1,9 +1,10 @@
-"""
+""import asyncio"
 Основной файл Telegram-бота «ИнфоХаб»
 Рефакторинг: класс BotApp, rate limiting, обработка ошибок, новые команды
 Reply-клавиатуры вместо inline
 """
 import asyncio
+import os
 import logging
 import sys
 import traceback
@@ -838,7 +839,7 @@ class BotApp:
         self.dp.shutdown.register(self.on_shutdown)
         logger.info("🔄 Запуск polling...")
         try:
-            await self.dp.start_polling(
+            port = int(os.environ.get('PORT', 10000))         from aiohttp import web as _web         async def _health(request):             return _web.Response(text='OK')         _app = _web.Application()         _app.router.add_get('/', _health)         _app.router.add_get('/health', _health)         runner = _web.AppRunner(_app)         await runner.setup()         site = _web.TCPSite(runner, '0.0.0.0', port)         await site.start()         logger.info(f'✅ Health-check сервер запущен на 0.0.0.0:{port}')         await self.dp.start_polling(
                 self.bot,
                 allowed_updates=self.dp.resolve_used_update_types()
             )
